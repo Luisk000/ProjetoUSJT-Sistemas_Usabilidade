@@ -1,0 +1,47 @@
+************************************************
+Usuário
+
+Home
+Get - Listar todas as vagas inscritas (vagas_por_usuario_id_sps)
+
+Vagas
+Get - Listar todas as vagas disponíveis (vagas_obter_todas_sps)
+Get - Filtrar vagas por nome (vagas_filtro_por_nome_sps)
+Get - Filtrar vagaspor descrição (vagas_filtro_por_descricao_sps)
+Get - Visualizar detalhes das vagas (vaga_obter_id_sps)
+Post - Candidatar-se a vaga detalhada (vaga_usuario_candidatar_spi)
+
+TOP 20
+Get - Listar as 20 vagas disponíveis com maior quantidade por ordem crescente (vaga_obter_por_top_20_sps)
+Post - Candidatar-se a vaga detalhada (vaga_usuario_candidatar_spi)
+
+Areas+
+Get - Listar as 10 áreas com maior número de vagas por ordem crescente (vaga_obter_por_area_mais_sps)
+
+Cadastro
+Get - Dados do usuário (cadastro_usuario_obter_id_sps)
+Post - Dados de novo usuário (cadastro_usuario_incluir_spi)
+Put - Alteração de dados de usuário (cadastro_usuario_alterar_spi)
+
+************************************************
+Admin
+
+Home
+Get - Listar todas cadastradas da empresa (vaga_obter_por_admin_id_sps)
+
+Vagas
+Get - Buscar vaga cadastrada para edição (vaga_obter_id_sps)
+Put - Atualizar dados da vaga (vaga_admin_alterar_spi)
+Post - Cadastrar nova vaga (vaga_admin_incluir_spi)
+Delete - Excluir vaga (vaga_admin_excluir_spi)
+
+Cadastro
+Get - Dados do administrador (cadastro_admin_obter_id_sps)
+Post - Dados de novo administrador (cadastro_admin_incluir_spi)
+Put - Alteração de dados de administrador (cadastro_admin_alterar_spi)
+
+
+
+
+
+
