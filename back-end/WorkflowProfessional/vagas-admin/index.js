@@ -13,8 +13,6 @@ const db = mysql.createPool({
 app.use(express.json());
 app.use(cors());
 
-//----------------------------------------------------------------------------
-//----------------------------------------------------------------------------
 app.get("/obterVagasAdminPorIdAdmin/:admin_id", (req, res) => {
   const { admin_id } = req.params;
   let mysql = 'call vaga_obter_por_admin_id_sps(?)';
@@ -93,9 +91,6 @@ app.delete("/excluirVagaAdmin/:id", (req, res) => {
       }
   });
 });
-
-//----------------------------------------------------------------------------
-//----------------------------------------------------------------------------
 
 app.listen(5000, () => {
     console.log("rodando na porta 5000");
