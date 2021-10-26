@@ -55,7 +55,7 @@ CREATE TABLE vaga_usuario_tb
   id_usuario varchar(50) NOT NULL,    
   data_criacao DATETIME NOT NULL DEFAULT(CURDATE()),
   CONSTRAINT PK_VagaUsuario PRIMARY KEY (id_vaga, id_usuario),
-  CONSTRAINT FK_Vaga_VagaTb FOREIGN KEY (id_vaga) REFERENCES vaga_tb (id),
+  CONSTRAINT FK_Vaga_VagasTb FOREIGN KEY (id_vaga) REFERENCES vaga_tb (id),
   CONSTRAINT FK_Vaga_UsuarioTb FOREIGN KEY (id_usuario) REFERENCES cadastro_usuario_tb (id)
 );
 
@@ -103,6 +103,18 @@ BEGIN
   select cA.id, cA.nome, cA.email, cA.empresa, cA.cargo, cA.data_criacao 
   from cadastro_admin_tb cA
   where cA.id=id;
+END ;;
+DELIMITER ;
+
+drop procedure if exists cadastro_admin_obter_email_sps;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastro_admin_obter_email_sps`(
+  email varchar(150)
+)
+BEGIN
+  select cA.id, cA.nome, cA.email, cA.empresa, cA.cargo, cA.data_criacao 
+  from cadastro_admin_tb cA
+  where cA.email=email;
 END ;;
 DELIMITER ;
 
@@ -158,6 +170,18 @@ BEGIN
 END ;;
 DELIMITER ;
 
+drop procedure if exists cadastro_usuario_obter_email_sps;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastro_usuario_obter_email_sps`(
+  email varchar(150)
+)
+BEGIN
+  select cUser.id, cUser.nome, cUser.email, cUser.data_nascimento, cUser.profissao, cUser.experiencia, cUser.cursos 
+  from cadastro_usuario_tb cUser
+  where cUser.email=email;
+END ;;
+DELIMITER ;
+
 drop procedure if exists vaga_admin_incluir_spi;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `vaga_admin_incluir_spi`(
@@ -204,9 +228,9 @@ BEGIN
 END ;;
 DELIMITER ;
 
-drop procedure if exists vaga_obter_id_sps;
+drop procedure if exists vaga_obter_por_id_sps;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `vaga_obter_id_sps`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `vaga_obter_por_id_sps`(
   id varchar(50)
 )
 BEGIN
