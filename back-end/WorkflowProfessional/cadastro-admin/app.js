@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const rotaCadastro = require('./routes/cadastro-admin');
+const rotaCadastro = require('./routes/cadastroAdmin');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
