@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const rotaCadastroAdmin = require('./routes/cadastroAdmin');
+const rotaCadastroUsuario = require('./routes/cadastroUsuario');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/cadastrosAdmin',rotaCadastroAdmin);
+app.use('/cadastrosAdmin',rotaCadastroUsuario);
 
 app.use((req, res, next) => {
     const erro = new Error('Não encontrado');
