@@ -223,10 +223,37 @@ exports.Candidatar = (req, res) => {
     conn.query(mysql, [id_vaga,id_usuario], (error, result, field) => {
       conn.release();
       if (error) { return res.status(500).send({ error: error, data: null }) } 
-      const response = {
-        data: { dados: 'Candidatura realizada com sucesso!' }
-      } 
+      let response = {}
+      if (result.affectedRows > 0) { 
+        response = { data: { dados: 'Candidatura realizada com sucesso!' } } 
+      }
+      else { response = { data: { dados: null } } }
       return res.status(201).send(response);            
+    });
+  })  
+}
+
+exports.ObterVagaCandidato = (req, res) => {  
+  db.getConnection((error, conn) => {
+    if (error) { return res.status(500).send({ error: error }) }
+    const { id_vaga } = req.body;
+    const { id_usuario } = req.body;
+    let mysql = 'call vaga_usuario_inscrito_sps(?,?)';
+    conn.query(mysql, [id_vaga, id_usuario], (error, result, field) => {
+      conn.release();
+      if (error) { return res.status(500).send({ error: error, data: null }) }
+      const response = {
+        dados: result[0].map(vagas => {
+          return {
+            idVaga: vagas.id_vaga,
+            idUsuario: vagas.id_usuario
+          }            
+        })
+      }
+      let eCandidado = false;
+      if (response.dados[0] != null) { eCandidado = true; }
+      else { eCandidado = false }  
+      return res.status(200).send(eCandidado);   
     });
   })  
 }

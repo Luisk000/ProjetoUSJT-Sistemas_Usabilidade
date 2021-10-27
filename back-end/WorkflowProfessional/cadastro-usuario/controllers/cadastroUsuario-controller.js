@@ -1,4 +1,5 @@
 const db = require('../mysql').db;
+const { v4: uuidv4 } = require('uuid');
 
 exports.ObterPorEmail = (req, res) => {
   db.getConnection((error, conn) => {
@@ -32,7 +33,7 @@ exports.ObterPorEmail = (req, res) => {
 exports.Cadastrar = (req, res) => {
   db.getConnection((error, conn) => {
     if (error) { return res.status(500).send({ error: error }) }
-    const { id } = req.body;
+    const id = uuidv4();
     const { nome } = req.body;
     const { email } = req.body;
     const { data_nascimento } = req.body;
@@ -43,9 +44,11 @@ exports.Cadastrar = (req, res) => {
     conn.query(mysql, [id, nome, email, data_nascimento, profissao, experiencia, cursos], (error, result, field) => {
       conn.release();
       if (error) { return res.status(500).send({ error: error, data: null }) } 
-      const response = {
-        data: { dados: 'Dados Cadastrados com sucesso!' }
-      } 
+      let response = {}
+      if (result.affectedRows > 0) { 
+        response = { data: { dados: 'Dados cadastrados com sucesso!' } } 
+      }
+      else { response = { data: { dados: null } } }
       return res.status(201).send(response);            
     });
   })  
@@ -65,9 +68,11 @@ exports.Atualizar = (req, res) => {
     conn.query(mysql, [id, nome, email, data_nascimento, profissao, experiencia, cursos], (error, result, field) => {
       conn.release();
       if (error) { return res.status(500).send({ error: error, data: null }) } 
-      const response = {
-        data: { dados: 'Dados Atualizados com sucesso!' }
-      } 
+      let response = {}
+      if (result.affectedRows > 0) { 
+        response = { data: { dados: 'Dados atualizados com sucesso!' } } 
+      }
+      else { response = { data: { dados: null } } }
       return res.status(201).send(response);            
     });
   })

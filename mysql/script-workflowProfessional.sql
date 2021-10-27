@@ -341,6 +341,19 @@ BEGIN
 END ;;
 DELIMITER ;
 
+drop procedure if exists vaga_usuario_inscrito_sps;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `vaga_usuario_inscrito_sps`(
+  id_vaga varchar(50),
+  id_usuario varchar(50)
+)
+BEGIN
+  select v.id_vaga, v.id_usuario
+  from vaga_usuario_tb v
+  where v.id_vaga=id_vaga and v.id_usuario=id_usuario;
+END ;;
+DELIMITER ;
+
 -- Inserir Dados
 
 insert into 

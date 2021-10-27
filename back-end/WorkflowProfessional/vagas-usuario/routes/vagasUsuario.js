@@ -11,5 +11,6 @@ router.get("/obterPorUsuarioId/:id_usuario", VagasUsuarioController.ObterPorUsua
 router.post("/obterFiltroNome", VagasUsuarioController.ObterFiltroNome);
 router.post("/obterFiltroDescricao", VagasUsuarioController.ObterFiltroDescricao);
 router.post("/candidatar", VagasUsuarioController.Candidatar);
+router.post("/obterCandidatoInscrito", VagasUsuarioController.ObterVagaCandidato);
 
 module.exports = router;

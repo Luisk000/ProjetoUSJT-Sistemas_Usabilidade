@@ -1,4 +1,5 @@
 const db = require('../mysql').db;
+const { v4: uuidv4 } = require('uuid');
 
 exports.ObterVagasPorIdAdmin = (req, res) => {
   db.getConnection((error, conn) => {
@@ -65,7 +66,7 @@ exports.ObterVagaPorId = (req, res) => {
 exports.CadastrarVaga = (req, res) => {
   db.getConnection((error, conn) => {
     if (error) { return res.status(500).send({ error: error }) }
-    const { id } = req.body;
+    const id = uuidv4();
     const { admin_id } = req.body;
     const { funcao } = req.body;
     const { descricao } = req.body;
@@ -78,9 +79,11 @@ exports.CadastrarVaga = (req, res) => {
     conn.query(mysql, [id, admin_id, funcao, descricao, area, horario, salario, beneficios, quantidade], (error, result, field) => {
       conn.release();
       if (error) { return res.status(500).send({ error: error, data: null }) } 
-      const response = {
-        data: { dados: 'Vaga cadastrada com sucesso!' }
-      } 
+      let response = {}
+      if (result.affectedRows > 0) { 
+        response = { data: { dados: 'Vaga cadastrada com sucesso!' } } 
+      }
+      else { response = { data: { dados: null } } }
       return res.status(201).send(response);            
     });
   })  
@@ -102,9 +105,11 @@ exports.AtualizarVaga = (req, res) => {
     conn.query(mysql, [id, admin_id, funcao, descricao, area, horario, salario, beneficios, quantidade], (error, result, field) => {
       conn.release();
       if (error) { return res.status(500).send({ error: error, data: null }) } 
-      const response = {
-        data: { dados: 'Vaga atualizada com sucesso!' }
-      } 
+      let response = {}
+      if (result.affectedRows > 0) { 
+        response = { data: { dados: 'Vaga atualizada com sucesso!' } } 
+      }
+      else { response = { data: { dados: null } } }
       return res.status(201).send(response);            
     });
   })  
@@ -118,9 +123,11 @@ exports.ExcluirAdmin = (req, res) => {
     conn.query(mysql, [id], (error, result, field) => {
       conn.release();
       if (error) { return res.status(500).send({ error: error, data: null }) } 
-      const response = {
-        data: { dados: 'Vaga excluida com sucesso!' }
-      } 
+      let response = {}
+      if (result.affectedRows > 0) { 
+        response = { data: { dados: 'Vaga excluída com sucesso!' } } 
+      }
+      else { response = { data: { dados: null } } }
       return res.status(201).send(response);            
     });
   })  
