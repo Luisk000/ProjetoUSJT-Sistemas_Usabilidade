@@ -226,7 +226,7 @@ exports.Candidatar = (req, res) => {
       const response = {
         data: { dados: 'Candidatura realizada com sucesso!' }
       } 
-      return res.status(200).send(response);            
+      return res.status(201).send(response);            
     });
   })  
 }
