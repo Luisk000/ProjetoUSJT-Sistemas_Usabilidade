@@ -10,7 +10,7 @@ CREATE TABLE cadastro_admin_tb
 (
   id varchar(50) NOT NULL,
   nome varchar(150) NOT NULL,
-  email varchar(150) NOT NULL,
+  email varchar(150) NOT NULL UNIQUE,
   empresa varchar(150) NULL,
   cargo varchar(150) NULL,    
   data_criacao DATETIME NOT NULL DEFAULT(CURDATE()),
@@ -22,7 +22,7 @@ CREATE TABLE cadastro_usuario_tb
 (
   id varchar(50) NOT NULL,
   nome varchar(150) NOT NULL,
-  email varchar(150) NOT NULL,
+  email varchar(150) NOT NULL UNIQUE,
   data_nascimento DATETIME NOT NULL DEFAULT(CURDATE()),
   profissao varchar(150) NULL,
   experiencia varchar(500) NULL,
