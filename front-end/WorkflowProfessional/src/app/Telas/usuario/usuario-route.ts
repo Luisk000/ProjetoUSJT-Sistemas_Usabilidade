@@ -27,7 +27,7 @@ const usuarioRouterConfig: Routes = [
         children: [
           { path: '', component: Top20Component },
 
-          { path: 'detalhes-vaga', component: DetalhesVagasComponent },
+          { path: 'detalhes-vaga/:id', component: DetalhesVagasComponent },
         ]
       },       
 
@@ -35,7 +35,7 @@ const usuarioRouterConfig: Routes = [
         children: [
           { path: '', component: VagaUsuarioComponent },
 
-          { path: 'detalhes-vaga', component: DetalhesVagasComponent },
+          { path: 'detalhes-vaga/:id', component: DetalhesVagasComponent },
         ]
       }    
     ]

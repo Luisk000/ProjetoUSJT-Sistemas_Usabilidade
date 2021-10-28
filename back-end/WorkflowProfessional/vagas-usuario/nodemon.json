@@ -4,5 +4,8 @@
         "MYSQL_PASSWORD" : "Lm@518792",
         "MYSQL_DATABASE" : "wkprofessional",
         "MYSQL_HOST" : "localhost"
+    },
+    "execMap": {
+        "js": "node --inspect"
     }
 }

@@ -21,6 +21,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { VagaUsuarioComponent } from './vagas-usuario/vaga-usuario/vaga-usuario.component';
 import { VagaComponent } from './vagas-usuario/vaga.component';
 import { Top20UsuarioComponent } from './top-20-usuario/top20-usuario.component';
+import { VagasUsuarioService } from './services/vagasUsuarioService';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,8 @@ import { Top20UsuarioComponent } from './top-20-usuario/top20-usuario.component'
     CustomFormsModule,
     CurrencyMaskModule
   ],  
-  providers: []
+  providers: [
+    VagasUsuarioService
+  ]
 })
 export class UsuarioModule { }
