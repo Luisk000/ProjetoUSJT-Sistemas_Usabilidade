@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { UsuarioService } from './Services/usuario-service';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   exports: [
     NotFoundComponent
   ],
-  providers: [HttpClient],
+  providers: [HttpClient, UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

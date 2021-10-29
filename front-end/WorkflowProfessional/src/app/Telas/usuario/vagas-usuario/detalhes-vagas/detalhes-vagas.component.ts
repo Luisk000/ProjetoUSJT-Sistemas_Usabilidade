@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { VagasUsuario } from '../../models/vagasUsuario';
+import { DadosUsuario, VagasUsuario } from '../../models/vagasUsuario';
 import { VagasUsuarioService } from '../../services/vagasUsuarioService';
+import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
 
 @Component({
   selector: 'app-detalhes-vagas',
@@ -11,15 +12,22 @@ import { VagasUsuarioService } from '../../services/vagasUsuarioService';
 })
 export class DetalhesVagasComponent implements OnInit {  
   
+  public dadosUsuario: DadosUsuario;
   public vagaUsuario: VagasUsuario;
+  public localStorage: LocalStorageUtils = new LocalStorageUtils();
+  public candidatura: boolean = false;
+  public idVaga: string = "";
 
   constructor(private _location: Location, 
     private route: ActivatedRoute,
     private vagasUsuarioService : VagasUsuarioService
     ) { }
 
-  ngOnInit() {    
-    this.obterPorId(this.route.snapshot.params['id']); 
+  ngOnInit() {
+    this.idVaga = this.route.snapshot.params['id'];
+    this.dadosUsuario = JSON.parse(this.localStorage.obterUsuario());
+    this.obterPorId(this.idVaga);
+    this.checarCandidatura(this.idVaga); 
   }
 
   voltarVagasUsuario(){
@@ -31,9 +39,26 @@ export class DetalhesVagasComponent implements OnInit {
       .subscribe(response => {
         if (response){
           this.vagaUsuario = response.data.dados;
-          console.log(this.vagaUsuario)          
         }
       })
+  }
+
+  public checarCandidatura(idVaga: string){        
+    this.vagasUsuarioService.obterCandidatoInscrito(idVaga, this.dadosUsuario[0].id)
+      .subscribe(response => {        
+        if (response == true || response == false){
+          this.candidatura = response;        
+        }
+      })  
+  }
+
+  public candidatar(){    
+    this.vagasUsuarioService.candidatarVaga(this.idVaga, this.dadosUsuario[0].id)
+      .subscribe(response => {
+        if (response){
+          this.candidatura = true;
+        }
+      });
   }
 
 }

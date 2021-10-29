@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 export abstract class BaseService {
 
     protected UrlServiceVagasUsuario: string = environment.apiVagasUsuario;
+    protected UrlServiceCadastroUsuario: string = environment.apiCadastroUsuario;
     //public LocalStorage = new LocalStorageUtils();
 
     protected ObterHeaderJson() {

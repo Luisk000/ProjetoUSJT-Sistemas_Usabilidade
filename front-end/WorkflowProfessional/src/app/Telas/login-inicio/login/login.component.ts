@@ -5,6 +5,9 @@ import { fromEvent, merge, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRegistro } from '../Model-Login/loginRegistro';
 import { CustomValidators } from 'ng2-validation';
+import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
+import { DadosUsuario } from '../../usuario/models/vagasUsuario';
+import { UsuarioService } from 'src/app/Services/usuario-service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +17,7 @@ import { CustomValidators } from 'ng2-validation';
 export class LoginComponent implements OnInit, AfterViewInit {
 
   public tipoUser: number;
+  public localStorage: LocalStorageUtils = new LocalStorageUtils();
 
   @ViewChildren(FormControlName, {read: ElementRef}) forInputElements: ElementRef[];
   
@@ -22,11 +26,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
   public loginRegistro: LoginRegistro;  
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
-  displayMessage: DisplayMessage = {};  
+  displayMessage: DisplayMessage = {};
+  public dadosUsuario: DadosUsuario;  
 
   constructor(private fb: FormBuilder,    
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private vagasUsuarioService : UsuarioService
     ) {    
 
     this.validationMessages = {
@@ -67,10 +73,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
   login() {
     if (this.loginForm.dirty && this.loginForm.valid) {
       this.loginRegistro = Object.assign({}, this.loginRegistro, this.loginForm.value);
+      this.obterUsuarioPorEmail(this.loginRegistro.email);
       this.irDashboard();      
     }
-
-    console.log(this.loginRegistro);
   }
 
   irDashboard(){
@@ -90,8 +95,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.router.navigate([`registro/${this.tipoUser}`]);
   }
 
+  salvarLocalStorage(){
+    this.localStorage.salvarUsuario(JSON.stringify(this.dadosUsuario));
+  }
+
   voltarSelecao(){
     this.router.navigate(['/']);
+  }
+
+  public obterUsuarioPorEmail(email: string){
+    this.vagasUsuarioService.obterUsuarioPorEmail(email)
+      .subscribe(response => {
+        if (response){
+          this.dadosUsuario = response.data.dados;
+          this.salvarLocalStorage();
+        }
+      })
   }
 
 }

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { BaseService } from 'src/app/services/base.service';
-import { VagasUsuario } from "../models/vagasUsuario";
+import { DadosUsuario, VagasUsuario } from "../models/vagasUsuario";
 import { HttpApiResponse } from "src/app/Models/http-api-response";
 
 @Injectable()
@@ -30,6 +30,19 @@ export class VagasUsuarioService extends BaseService {
             .get<HttpApiResponse<VagasUsuario>>(this.UrlServiceVagasUsuario + "obterPorId/" + id, super.ObterHeaderJson())
             .pipe(catchError(super.serviceError));
     }
+
+    obterCandidatoInscrito(idVaga: string, idUsuario: string): Observable<boolean> {
+        let id_vaga = idVaga; 
+        let id_usuario = idUsuario;        
+        return this.http.post<boolean>(`${this.UrlServiceVagasUsuario}obterCandidatoInscrito`,{id_vaga,id_usuario}, super.ObterHeaderJson());
+    }
+
+    candidatarVaga(idVaga: string, idUsuario: string): Observable<HttpApiResponse<any>> {
+        let id_vaga = idVaga; 
+        let id_usuario = idUsuario;        
+        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasUsuario}candidatar`,{id_vaga,id_usuario}, super.ObterHeaderJson());
+    }
+
 
     // novoProduto(produto: Produto): Observable<Produto> {
     //     return this.http

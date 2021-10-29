@@ -1,6 +1,6 @@
 <app-menu-usuario></app-menu-usuario>
 
-<div class="container main-container">
+<div *ngIf="vagasUsuario" class="container main-container">
   <div class="container">
     <div class="painel">
       <div class="painel-topo">
@@ -20,7 +20,7 @@
           <div class="col-2"></div>
         </div>
         
-        <div class="conteudo">
+        <div *ngIf="vagasUsuario.length > 0" class="conteudo">
           <div class="row conteudo-interno" *ngFor="let vaga of vagasUsuario">
             <div class="col-4 conteudo-coluna-1"><span>{{vaga.funcao}}</span></div>
             <div class="col-5 conteudo-coluna-2"><span>{{vaga.descricao}}</span></div>
@@ -32,9 +32,9 @@
           </div>
         </div>
 
-        <!-- <div *ngIf="vagasUsuario.length < 0" class="row conteudo">
+        <div *ngIf="vagasUsuario.length < 0" class="row conteudo">
           <div class="col-6 sem-conteudo"><span>Não possui vagas cadastradas</span></div>          
-        </div> -->
+        </div>
 
       </div>
     </div>    

@@ -54,6 +54,14 @@
     width: 200px;
 }
 
+.candidatura-realizada{
+    width: 300px;
+    background-color: rgba(92, 70, 70, 0.5);
+    text-align: center;
+    padding-top: 8px;
+    border-radius: 10px;    
+}
+
 .botoes{
     display: flex;
     flex-wrap: wrap;

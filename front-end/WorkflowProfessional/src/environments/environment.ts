@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiVagasUsuario: 'http://localhost:6000/vagasUsuario/'
+  apiVagasUsuario: 'http://localhost:6000/vagasUsuario/',
+  apiCadastroUsuario: 'http://localhost:4000/cadastroUsuario/'
 };
 
 /*

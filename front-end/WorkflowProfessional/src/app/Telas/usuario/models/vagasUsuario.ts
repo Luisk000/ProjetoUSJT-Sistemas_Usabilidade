@@ -9,3 +9,13 @@ export class VagasUsuario {
     beneficios: string;
     qtdVagas: number;    
 }
+
+export class DadosUsuario {
+    id: string;
+    nome: string;
+    email: string;
+    dataNascimento: string;
+    profissao: string;
+    experiencia: string;
+    cursos: string;    
+}

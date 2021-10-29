@@ -21,7 +21,7 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/cadastrosAdmin',rotaCadastroAdmin);
+app.use('/cadastroAdmin',rotaCadastroAdmin);
 
 app.use((req, res, next) => {
     const erro = new Error('Não encontrado');

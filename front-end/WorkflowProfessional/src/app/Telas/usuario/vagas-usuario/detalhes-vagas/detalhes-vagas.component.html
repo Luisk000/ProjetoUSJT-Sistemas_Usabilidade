@@ -1,24 +1,24 @@
 <app-menu-usuario></app-menu-usuario>
 
-<div class="container main-container">
+<div *ngIf="vagaUsuario" class="container main-container">
   <div class="container">
     <div class="painel">      
       
         <div class="detalhes-vaga">
-          <div class="nome-vaga"><span>Programador C#</span></div>
+          <div class="nome-vaga"><span>{{vagaUsuario[0].funcao}}</span></div>
           <div class="descricao">
-            <p>- Experiência com C#;</p>
-            <p>- Conhecimento em HTML, CSS e JavaScript;</p>
-            <p>- Conhecimento em HTML, CSS e JavaScript;</p>
-            <p>- Experiência com .NET Core;</p>
-            <p>- Experiência com CQRS e Testes de Unidade;</p>
-            <p>- Conhecimento e Experiência em Arquitetura Distribuida;</p>
+            <p>Área de atuação: {{vagaUsuario[0].area}}</p>
+            <p>Requisitos: {{vagaUsuario[0].descricao}}</p>
+            <p>Salário: {{vagaUsuario[0].salario}}</p>
+            <p>Benefícios: {{vagaUsuario[0].beneficios}}</p>
+            <p>Quantidade de Vagas{{vagaUsuario[0].qtdVagas}}</p>
           </div>          
         </div>
         
         <div class="col-12">
           <span class="botoes">
-            <button class="btn btn-primary botao-candidatar">Candidatar-se</button>
+            <button *ngIf="!candidatura" class="btn btn-primary botao-candidatar" (click)="candidatar()">Candidatar-se</button>
+            <span *ngIf="candidatura" class="candidatura-realizada">Você já se candidatou a esta vaga</span>
             <button class="btn btn-danger botao-voltar" (click)="voltarVagasUsuario()">Voltar</button>
           </span>
         </div>        
