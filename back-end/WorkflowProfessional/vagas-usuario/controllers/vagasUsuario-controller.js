@@ -142,7 +142,8 @@ exports.ObterPorUsuarioId = (req, res) => {
               horario: vagas.horario,
               salario: vagas.salario,
               beneficios: vagas.beneficios,
-              qtdVagas: vagas.quantidade
+              qtdVagas: vagas.quantidade,
+              empresa: vagas.empresa
             }            
           }) 
         }

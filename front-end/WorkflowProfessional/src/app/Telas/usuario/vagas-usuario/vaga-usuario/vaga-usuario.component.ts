@@ -33,7 +33,7 @@ export class VagaUsuarioComponent implements OnInit {
     this.vagasUsuarioService.obterTodas()
       .subscribe(response => {
         if (response){
-          this.vagasUsuario = response.data.dados;          
+          this.vagasUsuario = response.data.dados;
         }
       })
   }

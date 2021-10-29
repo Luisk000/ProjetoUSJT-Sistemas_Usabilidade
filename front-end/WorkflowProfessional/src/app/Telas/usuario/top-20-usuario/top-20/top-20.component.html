@@ -1,6 +1,6 @@
 <app-menu-usuario></app-menu-usuario>
 
-<div class="container main-container">
+<div *ngIf="vagasUsuario" class="container main-container">
   <div class="container">
     <div class="painel">
       <div class="painel-topo">
@@ -15,191 +15,21 @@
           <div class="col-2 titulo-coluna-2"><span>Ação</span></div>
         </div>
         
-        <div *ngIf="true" class="row conteudo">
-            
-          <div class="conteudo-coluna-0"><span>1º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>2º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-          
-          <div class="conteudo-coluna-0"><span>3º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>4º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>5º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>6º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>7º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>8º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>9º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>10º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>11º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>12º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-          
-          <div class="conteudo-coluna-0"><span>13º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>14º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>15º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>16º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>17º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>18º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>19º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-
-          <div class="conteudo-coluna-0"><span>20º</span></div>
-          <div class="col-4 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-4 conteudo-coluna-2"><span>Híbrido</span></div>
-          <div class="col-2 conteudo-coluna-3">
-            <span class="botoes">
-              <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga()">Visualizar</button>              
-            </span>
-          </div>
-          
+        <div *ngIf="vagasUsuario.length > 0" class="conteudo">
+          <div class="row conteudo-interno" *ngFor="let vaga of vagasUsuario; let i = index">
+            <div class="conteudo-coluna-0"><span>{{(i+1)}}º</span></div>
+            <div class="col-4 conteudo-coluna-1"><span>Programador C#</span></div>
+            <div class="col-4 conteudo-coluna-2"><span>Trabalhar home office</span></div>
+            <div class="col-2 conteudo-coluna-3">
+              <span class="botoes">
+                <button class="btn btn-primary botao-visualizar" (click)="visualizarVaga(vaga.id)">Visualizar</button>              
+              </span>
+            </div>
+          </div>           
+                    
         </div>
 
-        <div *ngIf="false" class="row conteudo">
+        <div *ngIf="vagasUsuario.length < 0" class="row conteudo">
           <div class="col-6 sem-conteudo"><span>Não possui vagas cadastradas</span></div>          
         </div>
 

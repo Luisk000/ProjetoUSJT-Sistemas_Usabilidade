@@ -1,6 +1,6 @@
 <app-menu-usuario></app-menu-usuario>
 
-<div class="container main-container">
+<div *ngIf="vagasUsuario" class="container main-container">
   <div class="container">
     <div class="painel">
       <div class="painel-topo">
@@ -12,42 +12,15 @@
           <div class="col-1 titulo-coluna-1"><span>Posição</span></div>
           <div class="col-9 titulo-coluna-1"><span>Area</span></div>          
         </div>
-        
-        <div *ngIf="true" class="row conteudo">
-            
-          <div class="conteudo-coluna-0"><span>1º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>Desenvolvimento de Sistemas</span></div>
 
-          <div class="conteudo-coluna-0"><span>2º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>Infraestrutura TI</span></div>
-          
-          <div class="conteudo-coluna-0"><span>3º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>DevOps</span></div>
-
-          <div class="conteudo-coluna-0"><span>4º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>DBA</span></div>
-
-          <div class="conteudo-coluna-0"><span>5º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>Designer Gráfico</span></div>
-
-          <div class="conteudo-coluna-0"><span>6º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>Engenharias</span></div>
-
-          <div class="conteudo-coluna-0"><span>7º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>RH</span></div>
-
-          <div class="conteudo-coluna-0"><span>8º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>Comércio de Eletrônicos</span></div>
-
-          <div class="conteudo-coluna-0"><span>9º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>Agropecuária</span></div>
-
-          <div class="conteudo-coluna-0"><span>10º</span></div>
-          <div class="col-9 conteudo-coluna-1"><span>Direito</span></div>
-                    
+        <div *ngIf="vagasUsuario.length > 0" class="conteudo">
+          <div class="row conteudo-interno" *ngFor="let vaga of vagasUsuario; let i = index">
+            <div class="col-2 conteudo-coluna-0"><span>{{(i+1)}}º</span></div>
+            <div class="col-8 conteudo-coluna-1"><span>{{vaga.area}}</span></div>            
+          </div>  
         </div>
 
-        <div *ngIf="false" class="row conteudo">
+        <div *ngIf="vagasUsuario.length < 0" class="row conteudo">
           <div class="col-6 sem-conteudo"><span>Não possui vagas cadastradas</span></div>          
         </div>
 

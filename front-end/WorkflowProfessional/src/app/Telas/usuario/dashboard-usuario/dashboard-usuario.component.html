@@ -1,5 +1,5 @@
 <app-menu-usuario></app-menu-usuario>
-<div class="container main-container">
+<div *ngIf="vagasUsuario" class="container main-container">
   <div class="container">
     <div class="painel">
       <div class="painel-topo">
@@ -10,31 +10,15 @@
           <div class="col-5 titulo-coluna-1"><span>Empresa</span></div>
           <div class="col-5 titulo-coluna-2"><span>Vaga</span></div>
         </div>
-        
-        <div *ngIf="true" class="row conteudo">
-          <div class="col-5 conteudo-coluna-1"><span>TI Specialist</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador C#</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Desenvolvimento de Sistemas</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador JAVA</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>TI Specialist</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador C#</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Desenvolvimento de Sistemas</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador JAVA</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>TI Specialist</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador C#</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Desenvolvimento de Sistemas</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador JAVA</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>TI Specialist</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador C#</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Desenvolvimento de Sistemas</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador JAVA</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>TI Specialist</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador C#</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Desenvolvimento de Sistemas</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Programador JAVA</span></div>
+
+        <div *ngIf="vagasUsuario.length > 0" class="conteudo">
+          <div class="row conteudo-interno" *ngFor="let vaga of vagasUsuario">
+            <div class="col-5 conteudo-coluna-1"><span>{{vaga.empresa}}</span></div>
+            <div class="col-5 conteudo-coluna-2"><span>{{vaga.funcao}}</span></div>             
+          </div>  
         </div>
 
-        <div *ngIf="false" class="row conteudo">
+        <div *ngIf="vagasUsuario.length < 0" class="row conteudo">
           <div class="col-6 sem-conteudo"><span>Não se candidatou a nenhuma vaga</span></div>          
         </div>
 

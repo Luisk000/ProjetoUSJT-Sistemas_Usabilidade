@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
-  public dadosUsuario: DadosUsuario;  
+  public dadosUsuario: DadosUsuario;
+  public cadastroUsuario: string;  
 
   constructor(private fb: FormBuilder,    
     private router: Router,
@@ -73,8 +74,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   login() {
     if (this.loginForm.dirty && this.loginForm.valid) {
       this.loginRegistro = Object.assign({}, this.loginRegistro, this.loginForm.value);
-      this.obterUsuarioPorEmail(this.loginRegistro.email);
-      this.irDashboard();      
+      if (this.tipoUser == 2) this.salvarDados(this.loginRegistro.email);
     }
   }
 
@@ -103,14 +103,32 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/']);
   }
 
-  public obterUsuarioPorEmail(email: string){
-    this.vagasUsuarioService.obterUsuarioPorEmail(email)
+  public obterUsuarioPorEmail(email: string){    
+    this.vagasUsuarioService.obterUsuarioPorEmail(email)    
       .subscribe(response => {
         if (response){
-          this.dadosUsuario = response.data.dados;
-          this.salvarLocalStorage();
+          this.dadosUsuario = response.data.dados;          
+          if (JSON.stringify(this.dadosUsuario) !== '[]'){
+            this.salvarLocalStorage();
+            this.irDashboard();            
+          }
+          else{
+            this.cadastrarUsuario(email);
+          }                             
         }
       })
   }
 
+  public cadastrarUsuario(email: string){         
+    this.vagasUsuarioService.cadastrarUsuario(email)
+      .subscribe(response => {
+        if (response){          
+          this.obterUsuarioPorEmail(this.loginRegistro.email);          
+        }
+      })      
+  }
+
+  public salvarDados(email: string){
+    this.obterUsuarioPorEmail(email);    
+  }
 }

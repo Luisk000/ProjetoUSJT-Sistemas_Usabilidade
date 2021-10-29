@@ -8,7 +8,7 @@ exports.ObterPorEmail = (req, res) => {
     let mysql = 'call cadastro_usuario_obter_email_sps(?)';
     conn.query(mysql, [email], (error, result, field) => {
       conn.release();
-      if (error) { return res.status(500).send({ error: error, data: null }) } 
+      if (error) { return res.status(500).send({ error: error, data: { dados: null } }) } 
       const response = {
         data: {
           totalRegistros: result[0].length,
@@ -33,17 +33,12 @@ exports.ObterPorEmail = (req, res) => {
 exports.Cadastrar = (req, res) => {
   db.getConnection((error, conn) => {
     if (error) { return res.status(500).send({ error: error }) }
-    const id = uuidv4();
-    const { nome } = req.body;
-    const { email } = req.body;
-    const { data_nascimento } = req.body;
-    const { profissao } = req.body;
-    const { experiencia } = req.body;
-    const { cursos } = req.body;
-    let mysql = "call cadastro_usuario_incluir_spi(?,?,?,?,?,?,?)";
-    conn.query(mysql, [id, nome, email, data_nascimento, profissao, experiencia, cursos], (error, result, field) => {
+    const id = uuidv4();    
+    const { email } = req.body;    
+    let mysql = "call cadastro_usuario_incluir_spi(?,?)";
+    conn.query(mysql, [id, email], (error, result, field) => {
       conn.release();
-      if (error) { return res.status(500).send({ error: error, data: null }) } 
+      if (error) { return res.status(500).send({ error: error, data: { dados: null } }) } 
       let response = {}
       if (result.affectedRows > 0) { 
         response = { data: { dados: 'Dados cadastrados com sucesso!' } } 
@@ -67,7 +62,7 @@ exports.Atualizar = (req, res) => {
     let mysql = "call cadastro_usuario_alterar_spi(?,?,?,?,?,?,?)";
     conn.query(mysql, [id, nome, email, data_nascimento, profissao, experiencia, cursos], (error, result, field) => {
       conn.release();
-      if (error) { return res.status(500).send({ error: error, data: null }) } 
+      if (error) { return res.status(500).send({ error: error, data: { dados: null } }) } 
       let response = {}
       if (result.affectedRows > 0) { 
         response = { data: { dados: 'Dados atualizados com sucesso!' } } 

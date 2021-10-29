@@ -17,6 +17,18 @@ export class VagasUsuarioService extends BaseService {
             .pipe(catchError(super.serviceError));
     }
 
+    obterVagasTop20(): Observable<HttpApiResponse<VagasUsuario[]>> {
+        return this.http
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterTop20", super.ObterHeaderJson())
+            .pipe(catchError(super.serviceError));
+    }
+
+    obterAreasMais(): Observable<HttpApiResponse<VagasUsuario[]>> {
+        return this.http
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterAreaMais", super.ObterHeaderJson())
+            .pipe(catchError(super.serviceError));
+    }
+
     obterVagasPorNome(filtro: string): Observable<HttpApiResponse<VagasUsuario[]>> {        
         return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuario}obterFiltroNome`,{filtro}, super.ObterHeaderJson());
     }
@@ -28,6 +40,13 @@ export class VagasUsuarioService extends BaseService {
     obterPorId(id: string): Observable<HttpApiResponse<VagasUsuario>> {
         return this.http
             .get<HttpApiResponse<VagasUsuario>>(this.UrlServiceVagasUsuario + "obterPorId/" + id, super.ObterHeaderJson())
+            .pipe(catchError(super.serviceError));
+    }
+
+    obterPorUsuarioId(idUsuario: string): Observable<HttpApiResponse<VagasUsuario[]>> {
+        let id_usuario = idUsuario;
+        return this.http
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterPorUsuarioId/" + id_usuario, super.ObterHeaderJson())
             .pipe(catchError(super.serviceError));
     }
 

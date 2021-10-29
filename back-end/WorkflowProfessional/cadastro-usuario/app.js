@@ -1,25 +1,25 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
+const app = express();
 
 const rotaCadastroUsuario = require('./routes/cadastroUsuario');
-
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Header', 
-    'Origin, X-Requested-With, Content-type, Accept, Authorization');
+    res.header(
+        'Access-Control-Allow-Header',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
 
-    if (req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT');
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
         return res.status(200).send({});
     }
-
     next();
-})
+});
 
 app.use('/cadastroUsuario',rotaCadastroUsuario);
 

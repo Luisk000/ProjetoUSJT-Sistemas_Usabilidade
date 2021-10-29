@@ -8,7 +8,7 @@ exports.ObterPorEmail = (req, res) => {
     let mysql = 'call cadastro_admin_obter_email_sps(?)';
     conn.query(mysql, [email], (error, result, field) => {
       conn.release();
-      if (error) { return res.status(500).send({ error: error, data: null }) } 
+      if (error) { return res.status(500).send({ error: error, data: { dados: null } }) } 
       const response = {
         data: {
           totalRegistros: result[0].length,

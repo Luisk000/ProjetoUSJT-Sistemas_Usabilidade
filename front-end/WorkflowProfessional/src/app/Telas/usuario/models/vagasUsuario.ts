@@ -7,7 +7,8 @@ export class VagasUsuario {
     horario: string;
     salario: number;
     beneficios: string;
-    qtdVagas: number;    
+    qtdVagas: number;
+    empresa: string;    
 }
 
 export class DadosUsuario {
