@@ -5,6 +5,9 @@ import { fromEvent, merge, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRegistro } from '../Model-Login/loginRegistro';
 import { CustomValidators } from 'ng2-validation';
+import { DadosUsuario } from '../../usuario/models/vagasUsuario';
+import { UsuarioService } from 'src/app/Services/usuario-service';
+import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
 
 @Component({
   selector: 'app-registro',
@@ -14,6 +17,7 @@ import { CustomValidators } from 'ng2-validation';
 export class RegistroComponent implements OnInit, AfterViewInit {
 
   public tipoUser: number;
+  public localStorage: LocalStorageUtils = new LocalStorageUtils();
 
   @ViewChildren(FormControlName, {read: ElementRef}) forInputElements: ElementRef[];
   
@@ -22,11 +26,13 @@ export class RegistroComponent implements OnInit, AfterViewInit {
   public loginRegistro: LoginRegistro;  
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
-  displayMessage: DisplayMessage = {};  
+  displayMessage: DisplayMessage = {};
+  public dadosUsuario: DadosUsuario;  
 
   constructor(private fb: FormBuilder,    
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private vagasUsuarioService : UsuarioService
     ) {    
 
     this.validationMessages = {
@@ -76,10 +82,8 @@ export class RegistroComponent implements OnInit, AfterViewInit {
   registrar() {
     if (this.registroForm.dirty && this.registroForm.valid) {
       this.loginRegistro = Object.assign({}, this.loginRegistro, this.registroForm.value);
-      this.irDashboard();      
+      if (this.tipoUser == 2) this.obterUsuarioPorEmail(this.loginRegistro.email);
     }
-
-    console.log(this.loginRegistro);
   }
 
   irDashboard(){
@@ -101,6 +105,41 @@ export class RegistroComponent implements OnInit, AfterViewInit {
 
   voltarSelecao(){
     this.router.navigate(['/']);
+  }
+
+  salvarLocalStorage(){
+    this.localStorage.salvarUsuario(JSON.stringify(this.dadosUsuario));
+  }
+
+  public obterUsuarioPorEmail(email: string){    
+    this.vagasUsuarioService.obterUsuarioPorEmail(email)    
+      .subscribe(response => {
+        if (response){
+          this.dadosUsuario = response.data.dados;          
+          if (JSON.stringify(this.dadosUsuario) !== '[]'){            
+            console.log("Email já cadastrado");            
+          }
+          else{
+            this.cadastrarUsuario(email);
+          }                             
+        }
+      })
+  }
+
+  public cadastrarUsuario(email: string){         
+    this.vagasUsuarioService.cadastrarUsuario(email)
+      .subscribe(response => {
+        if (response){
+          this.vagasUsuarioService.obterUsuarioPorEmail(email)    
+            .subscribe(response => {
+              if (response){
+                this.dadosUsuario = response.data.dados;
+                this.salvarLocalStorage();
+                this.irDashboard();
+              }
+            })     
+        }
+      })      
   }
 
 }

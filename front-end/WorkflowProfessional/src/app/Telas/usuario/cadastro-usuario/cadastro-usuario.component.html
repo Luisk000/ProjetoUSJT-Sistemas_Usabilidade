@@ -4,11 +4,11 @@
   <div class="container">
     <h4 class="paragrafo">Cadastro</h4>
     <hr class="paragrafo"/>
-    <form novalidate (ngSubmit)="adicionarAdministrador()" [formGroup]="cadastroForm">
+    <form novalidate (ngSubmit)="atualizarDadosUsuario()" [formGroup]="cadastroForm">
       <div class="form-horizontal">
 
         <div class="form-group">
-          <label class="col-md-3 col-sm-5 control-label" for="nome">Digite seu nome</label>
+          <label class="col-md-3 col-sm-5 control-label" for="nome">Nome</label>
           <div class="col-md-10">
             <input class="form-control" id="nome" type="text" placeholder="Nome (requerido)" formControlName="nome" 
             [ngClass]="{'is-invalid': displayMessage.nome}"/>
@@ -19,18 +19,29 @@
         </div>
 
         <div class="form-group">
-          <label class="col-md-3 col-sm-5 control-label" for="dataNasc">Digite a data de nascimento</label>
+          <label class="col-md-3 col-sm-5 control-label" for="email">E-mail</label>
           <div class="col-md-10">
-            <input class="form-control" id="dataNasc" type="text" placeholder="Data de Nascimento (requerido)" formControlName="dataNasc" 
-            [ngClass]="{'is-invalid': displayMessage.dataNasc}" date/>
-            <span class="text-danger" *ngIf="displayMessage.dataNasc">
-              <p [innerHTML]="displayMessage.dataNasc"></p>
+            <input readonly class="form-control" id="email" type="text" placeholder="E-mail (requerido)" formControlName="email" 
+            [ngClass]="{'is-invalid': displayMessage.email }"/>
+            <span class="text-danger" *ngIf="displayMessage.email">
+              <p [innerHTML]="displayMessage.email"></p>
             </span>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="col-md-3 col-sm-5 control-label" for="profissao">Digite a profissao</label>
+          <label class="col-md-3 col-sm-5 control-label" for="dataNascimento">Data de Nascimento</label>
+          <div class="col-md-10">
+            <input class="form-control" id="dataNascimento" type="text" placeholder="Data de Nascimento (requerido)" formControlName="dataNascimento" 
+            [ngClass]="{'is-invalid': displayMessage.dataNascimento}" date/>
+            <span class="text-danger" *ngIf="displayMessage.dataNascimento">
+              <p [innerHTML]="displayMessage.dataNascimento"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 col-sm-5 control-label" for="profissao">Profissão</label>
           <div class="col-md-10">
             <input class="form-control" id="profissao" type="text" placeholder="Profissao (requerido)" formControlName="profissao" 
             [ngClass]="{'is-invalid': displayMessage.profissao}"/>
@@ -41,15 +52,15 @@
         </div>
 
         <div class="form-group">
-          <label class="col-md-5 col-sm-6 control-label" for="expProfissional">Digite a experiência profissional</label>
+          <label class="col-md-5 col-sm-6 control-label" for="experiencia">Experiância Profissional</label>
           <div class="col-md-10">
-            <textarea class="form-control" id="expProfissional" type="text" placeholder="Experiência Profissional" 
-            formControlName="expProfissional" rows="7"></textarea>
+            <textarea class="form-control" id="experiencia" type="text" placeholder="Experiência Profissional" 
+            formControlName="experiencia" rows="7"></textarea>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="col-md-3 col-sm-5 control-label" for="cursos">Digite os cursos</label>
+          <label class="col-md-3 col-sm-5 control-label" for="cursos">Cursos</label>
           <div class="col-md-10">
             <textarea class="form-control" id="cursos" type="text" 
             placeholder="Cursos" formControlName="cursos" rows="7"></textarea>

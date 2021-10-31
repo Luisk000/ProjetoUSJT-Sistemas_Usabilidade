@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,9 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { UsuarioService } from './Services/usuario-service';
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+registerLocaleData(localePT);
 
 
 @NgModule({
@@ -49,7 +52,7 @@ import { UsuarioService } from './Services/usuario-service';
   exports: [
     NotFoundComponent
   ],
-  providers: [HttpClient, UsuarioService],
+  providers: [HttpClient, UsuarioService, {provide: LOCALE_ID, useValue: 'pt-br'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

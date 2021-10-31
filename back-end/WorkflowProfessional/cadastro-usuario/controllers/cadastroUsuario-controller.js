@@ -30,6 +30,35 @@ exports.ObterPorEmail = (req, res) => {
   })
 }
 
+exports.ObterPorId = (req, res) => {
+  db.getConnection((error, conn) => {
+    if (error) { return res.status(500).send({ error: error }) }
+    const { id } = req.params;
+    let mysql = 'call cadastro_usuario_obter_id_sps(?)';
+    conn.query(mysql, [id], (error, result, field) => {
+      conn.release();
+      if (error) { return res.status(500).send({ error: error, data: { dados: null } }) } 
+      const response = {
+        data: {
+          totalRegistros: result[0].length,
+          dados: result[0].map(cadastro => {
+            return {
+              id: cadastro.id,
+              nome: cadastro.nome,
+              email: cadastro.email,
+              dataNascimento: cadastro.data_nascimento,
+              profissao: cadastro.profissao,
+              experiencia: cadastro.experiencia,
+              cursos: cadastro.cursos
+            }            
+          }) 
+        }
+      } 
+      return res.status(200).send(response);            
+    });
+  })
+}
+
 exports.Cadastrar = (req, res) => {
   db.getConnection((error, conn) => {
     if (error) { return res.status(500).send({ error: error }) }

@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
   public dadosUsuario: DadosUsuario;
-  public cadastroUsuario: string;  
 
   constructor(private fb: FormBuilder,    
     private router: Router,
@@ -74,7 +73,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   login() {
     if (this.loginForm.dirty && this.loginForm.valid) {
       this.loginRegistro = Object.assign({}, this.loginRegistro, this.loginForm.value);
-      if (this.tipoUser == 2) this.salvarDados(this.loginRegistro.email);
+      if (this.tipoUser == 2) this.obterUsuarioPorEmail(this.loginRegistro.email);
     }
   }
 
@@ -112,23 +111,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.salvarLocalStorage();
             this.irDashboard();            
           }
-          else{
-            this.cadastrarUsuario(email);
+          else{            
+            console.log("Usuario não cadastrado");
           }                             
         }
       })
-  }
-
-  public cadastrarUsuario(email: string){         
-    this.vagasUsuarioService.cadastrarUsuario(email)
-      .subscribe(response => {
-        if (response){          
-          this.obterUsuarioPorEmail(this.loginRegistro.email);          
-        }
-      })      
-  }
-
-  public salvarDados(email: string){
-    this.obterUsuarioPorEmail(email);    
   }
 }

@@ -1,10 +1,13 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomValidators } from 'ng2-validation';
 import { Observable, fromEvent, merge } from 'rxjs';
+import { UsuarioService } from 'src/app/Services/usuario-service';
 import { ValidationMessages, GenericValidator, DisplayMessage } from 'src/app/Validacao/generic-form-validator';
-import { Usuario } from '../model-usuario/usuario';
+import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
+import { DadosUsuario } from '../models/vagasUsuario';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -17,13 +20,17 @@ export class CadastroUsuarioComponent implements OnInit {
 
   cadastroForm: FormGroup;
   
-  public user: Usuario;
+  public localStorage: LocalStorageUtils = new LocalStorageUtils();
+  public user: DadosUsuario;
+  public dadosUsuario: DadosUsuario;
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
 
   constructor(private fb: FormBuilder, 
-    private router: Router) {
+    private router: Router,
+    private vagasUsuarioService : UsuarioService    
+    ) {
       
     this.validationMessages = {
       nome: {
@@ -31,7 +38,11 @@ export class CadastroUsuarioComponent implements OnInit {
         minlength: 'O nome precisa ter no mínimo 2 caracteres',
         maxlength: 'O nome precisa ter no máximo 150 caracteres'
       },
-      dataNasc: {
+      email: {
+        required: 'Informe o e-mail',
+        email: 'Email inválido'
+      },
+      dataNascimento: {
         required: 'A data de nascimento é requerida',
         date: 'Data de nascimento em formato inválido',
         minlength: 'Data de nascimento em formato inválido',
@@ -42,7 +53,7 @@ export class CadastroUsuarioComponent implements OnInit {
         minlength: 'O profissao precisa ter no mínimo 2 caracteres',
         maxlength: 'O profissao precisa ter no máximo 150 caracteres'
       },
-      expProfissional: { },
+      experiencia: { },
       cursos: { }
     };
     this.genericValidator = new GenericValidator(this.validationMessages);
@@ -55,11 +66,14 @@ export class CadastroUsuarioComponent implements OnInit {
 
     this.cadastroForm = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]],
-      dataNasc: nascimento,
+      email: ['', [Validators.required, Validators.email]],
+      dataNascimento: nascimento,
       profissao: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]],
-      expProfissional: ['', [Validators.maxLength(500)]],
+      experiencia: ['', [Validators.maxLength(500)]],
       cursos: ['', [Validators.maxLength(300)]]
     });
+    this.dadosUsuario = JSON.parse(this.localStorage.obterUsuario());    
+    this.obterUsuarioPorId(this.dadosUsuario[0].id)
   }
 
   ngAfterViewInit(): void {
@@ -71,15 +85,68 @@ export class CadastroUsuarioComponent implements OnInit {
     });
   }
 
-  adicionarAdministrador(){
+  preencherForm(usuario: DadosUsuario) {
+    this.cadastroForm.patchValue({
+      nome: usuario.nome,
+      email: usuario.email,
+      dataNascimento: usuario.dataNascimento,
+      profissao: usuario.profissao,
+      experiencia: usuario.experiencia,
+      cursos: usuario.cursos,
+    });
+  }
+
+  atualizarDadosUsuario(){
     if(this.cadastroForm.dirty && this.cadastroForm.valid){
       this.user = Object.assign({}, this.user, this.cadastroForm.value);
+      this.user.id = this.dadosUsuario.id;
+      this.user.dataNascimento = this.formatarDataNascimento(this.user.dataNascimento)
+      this.atualizarUsuario(this.user);
     }
+  }
 
-    console.log(this.user);
+  formatarDataNascimento(data: string): string{
+    let dia = parseInt(data.substring(0,2));
+    let mes = parseInt(data.substring(3,5));
+    let ano = parseInt(data.substring(6,10));
+    return ano + "-" + mes + "-" + dia;
   }
 
   voltarDashboard(){
     this.router.navigate(['usuario/home']);
+  }
+
+  salvarLocalStorage(){
+    this.localStorage.salvarUsuario(JSON.stringify(this.dadosUsuario));
+  }
+
+  public obterUsuarioPorId(id: string){
+    this.vagasUsuarioService.obterPorId(id)    
+      .subscribe(response => {
+        if (response){
+          this.dadosUsuario = response.data.dados[0];          
+          if (JSON.stringify(this.dadosUsuario) !== '[]'){
+            this.dadosUsuario.dataNascimento = this.converterDataNascimento(this.dadosUsuario.dataNascimento);
+            this.preencherForm(this.dadosUsuario);                        
+          }
+          else{            
+            console.log("Erro ao cadastrar usuario");
+          }                             
+        }
+      })
+  }
+
+  public atualizarUsuario(usuario: DadosUsuario){
+    this.vagasUsuarioService.atualizarUsuario(usuario)    
+      .subscribe(response => {
+        if (response){
+          document.location.reload();
+        }        
+      })
+  }
+
+  public converterDataNascimento(data: string): string{
+    var datePipe = new DatePipe('pt-br');
+    return datePipe.transform(data, 'dd/MM/yyyy');
   }
 }
