@@ -2,8 +2,11 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@ang
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/Validacao/generic-form-validator';
 import { fromEvent, merge, Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VagaAdmin } from '../../model-admin/vaga-admin';
+import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
+import { DadosAdmin, VagasAdmin } from '../../models/vagasModel';
+import { VagasAdminService } from '../../services/vagasAdminService';
 
 @Component({
   selector: 'app-cadastrar-vaga-admin',
@@ -12,17 +15,25 @@ import { VagaAdmin } from '../../model-admin/vaga-admin';
 })
 export class CadastrarVagaAdminComponent implements OnInit, AfterViewInit {
 
+  public localStorage: LocalStorageUtils = new LocalStorageUtils();
+  public dadosAdmin: DadosAdmin;
+  public vagasAdmin: VagasAdmin;
+  public vagaAdmin: VagasAdmin;
+  public idVaga: string = "";
+
   @ViewChildren(FormControlName, {read: ElementRef}) forInputElements: ElementRef[];
 
-  cadastroVagaForm: FormGroup;
+  cadastroVagaForm: FormGroup; 
   
-  public admin: VagaAdmin;
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
 
   constructor(private fb: FormBuilder, 
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute,
+    private vagasAdminService: VagasAdminService
+    ) {
       
     this.validationMessages = {
       funcao: {
@@ -34,6 +45,11 @@ export class CadastrarVagaAdminComponent implements OnInit, AfterViewInit {
         required: 'A descrição é requerida',
         minlength: 'A descrição precisa ter no mínimo 2 caracteres',
         maxlength: 'A descrição precisa ter no máximo 150 caracteres'
+      },
+      area: {
+        required: 'A area é requerida',
+        minlength: 'A area precisa ter no mínimo 2 caracteres',
+        maxlength: 'A area precisa ter no máximo 150 caracteres'
       },
       horario: {
         required: 'O horário é requerido',
@@ -50,18 +66,30 @@ export class CadastrarVagaAdminComponent implements OnInit, AfterViewInit {
         required: 'O benefício é requerido',
         minlength: 'O benefício precisa ter no mínimo 10 caracteres',
         maxlength: 'O benefício precisa ter no máximo 300 caracteres'
+      },
+      quantidade: {
+        required: 'A quantidade é requerida',
+        moeda: 'Quantidade inválida',
+        min: 'A Quantidade deve ser no mínimo 1',
+        max: 'A Quantidade deve ser no máximo 20'
       }
     };
     this.genericValidator = new GenericValidator(this.validationMessages);
   }
 
   ngOnInit() {
+    this.idVaga = this.route.snapshot.params['id'];
+    this.dadosAdmin = JSON.parse(this.localStorage.obterAdmin());    
+    this.obterPorId(this.idVaga);
+
     this.cadastroVagaForm = this.fb.group({
       funcao: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]],
       descricao: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]],
+      area: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]],
       horario: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(150)]],
       salario: ['', [Validators.required, Validators.min(1000), Validators.max(20000)]],
-      beneficios: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(300)]],      
+      beneficios: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(300)]],
+      quantidade: ['', [Validators.required, Validators.min(1), Validators.max(20)]]     
     });
   }
 
@@ -74,17 +102,52 @@ export class CadastrarVagaAdminComponent implements OnInit, AfterViewInit {
     });
   }
 
-  adicionarVaga(){
+  salvarVaga(){
 
     if(this.cadastroVagaForm.dirty && this.cadastroVagaForm.valid){
-      this.admin = Object.assign({}, this.admin, this.cadastroVagaForm.value);
+      this.vagaAdmin = Object.assign({}, this.vagaAdmin, this.cadastroVagaForm.value);
+      this.atualizarVaga(this.vagaAdmin);
     }
-
-    console.log(this.admin);
+    console.log(this.vagaAdmin);
   }
 
   voltarDashboard(){
     this.router.navigate(['admin/vagas']);
+  }
+
+  preencherForm(vaga: VagasAdmin) {
+    this.cadastroVagaForm.patchValue({      
+      funcao: vaga.funcao,
+      descricao: vaga.descricao,
+      area: vaga.area,
+      horario: vaga.horario,
+      salario: vaga.salario,
+      beneficios: vaga.beneficios,
+      quantidade: vaga.quantidade
+    });
+  }
+
+  public obterPorId(id: string){
+    this.vagasAdminService.obterPorId(id)
+      .subscribe(response => {
+        if (response){
+          this.vagaAdmin = response.data.dados[0];
+          if (JSON.stringify(this.vagaAdmin) !== '[]'){            
+            this.preencherForm(this.vagaAdmin);                        
+          }
+        }
+      })
+  }
+
+  public atualizarVaga(vaga: VagasAdmin){
+    this.vagasAdminService.atualizarVaga(vaga)
+      .subscribe(response => {
+        if (response){          
+          document.location.reload();
+        }else{
+          console.log("Erro ao atualizar vaga")
+        }
+      })
   }
 
 }

@@ -8,6 +8,8 @@ import { CustomValidators } from 'ng2-validation';
 import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
 import { DadosUsuario } from '../../usuario/models/vagasUsuario';
 import { UsuarioService } from 'src/app/Services/usuario-service';
+import { DadosAdmin } from '../../admin/models/vagasModel';
+import { AdminService } from 'src/app/Services/admin-service';
 
 @Component({
   selector: 'app-login',
@@ -28,11 +30,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
   public dadosUsuario: DadosUsuario;
+  public dadosAdmin: DadosAdmin;
 
   constructor(private fb: FormBuilder,    
     private router: Router,
     private route: ActivatedRoute,
-    private vagasUsuarioService : UsuarioService
+    private vagasUsuarioService: UsuarioService,
+    private vagasAdminService: AdminService
     ) {    
 
     this.validationMessages = {
@@ -74,6 +78,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     if (this.loginForm.dirty && this.loginForm.valid) {
       this.loginRegistro = Object.assign({}, this.loginRegistro, this.loginForm.value);
       if (this.tipoUser == 2) this.obterUsuarioPorEmail(this.loginRegistro.email);
+      if (this.tipoUser == 1) this.obterAdminPorEmail(this.loginRegistro.email);
     }
   }
 
@@ -94,8 +99,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.router.navigate([`registro/${this.tipoUser}`]);
   }
 
-  salvarLocalStorage(){
+  salvarLocalStorageUsuario(){
     this.localStorage.salvarUsuario(JSON.stringify(this.dadosUsuario));
+  }
+
+  salvarLocalStorageAdmin(){
+    this.localStorage.salvarAdmin(JSON.stringify(this.dadosAdmin));
   }
 
   voltarSelecao(){
@@ -108,11 +117,27 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (response){
           this.dadosUsuario = response.data.dados;          
           if (JSON.stringify(this.dadosUsuario) !== '[]'){
-            this.salvarLocalStorage();
+            this.salvarLocalStorageUsuario();
             this.irDashboard();            
           }
           else{            
             console.log("Usuario não cadastrado");
+          }                             
+        }
+      })
+  }
+
+  public obterAdminPorEmail(email: string){    
+    this.vagasAdminService.obterAdminPorEmail(email)    
+      .subscribe(response => {
+        if (response){
+          this.dadosAdmin = response.data.dados[0];          
+          if (JSON.stringify(this.dadosAdmin) !== '[]'){            
+            this.salvarLocalStorageAdmin();
+            this.irDashboard();            
+          }
+          else{            
+            console.log("Administrador não cadastrado");
           }                             
         }
       })

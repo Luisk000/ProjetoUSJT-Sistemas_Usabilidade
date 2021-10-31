@@ -32,11 +32,11 @@ exports.ObterVagasPorIdAdmin = (req, res) => {
   })  
 }
 
-exports.ObterVagaPorId = (req, res) => {
+exports.ObterVagaPorId = (req, res) => {  
   db.getConnection((error, conn) => {
     if (error) { return res.status(500).send({ error: error }) }
     const { id } = req.params;
-    let mysql = 'call vaga_obter_por_id_sps(?)';
+    let mysql = 'call vaga_obter_por_id_sps(?)';    
     conn.query(mysql, [id], (error, result, field) => {
       conn.release();
       if (error) { return res.status(500).send({ error: error, data: null }) } 
@@ -53,12 +53,38 @@ exports.ObterVagaPorId = (req, res) => {
               horario: vagas.horario,
               salario: vagas.salario,
               beneficios: vagas.beneficios,
-              qtdVagas: vagas.quantidade
+              quantidade: vagas.quantidade
             }            
           }) 
         }
       }
       return res.status(200).send(response);          
+    });
+  })  
+}
+
+exports.ObterCandidatosInscritos = (req, res) => {    
+  db.getConnection((error, conn) => {
+    if (error) { return res.status(500).send({ error: error }) }
+    const { admin_id } = req.body;
+    let mysql = 'call vagas_inscritas_por_admin_id_sps(?)';
+    conn.query(mysql, [admin_id], (error, result, field) => {
+      conn.release();
+      if (error) { return res.status(500).send({ error: error, data: null }) } 
+      const response = {
+        data: {
+          totalRegistros: result[0].length,
+          dados: result[0].map(vagas => {
+            return {
+              vagaId: vagas.id_vaga,
+              funcao: vagas.funcao,
+              usuarioId: vagas.id_usuario,
+              nome: vagas.nome              
+            }            
+          }) 
+        }
+      } 
+      return res.status(200).send(response);            
     });
   })  
 }

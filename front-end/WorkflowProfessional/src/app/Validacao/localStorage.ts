@@ -1,7 +1,11 @@
 export class LocalStorageUtils{
 
-  public obterUsuario() {
+    public obterUsuario() {
         return JSON.parse(localStorage.getItem('wk.user'));
+    }
+
+    public obterAdmin() {
+        return JSON.parse(localStorage.getItem('wk.admin'));
     }
 
     public salvarDadosLocaisUsuario(response: any) {
@@ -24,5 +28,9 @@ export class LocalStorageUtils{
 
     public salvarUsuario(user: string) {
         localStorage.setItem('wk.user', JSON.stringify(user));
+    }
+
+    public salvarAdmin(admin: string) {
+        localStorage.setItem('wk.admin', JSON.stringify(admin));
     }
 }

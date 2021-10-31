@@ -6,6 +6,8 @@ export abstract class BaseService {
 
     protected UrlServiceVagasUsuario: string = environment.apiVagasUsuario;
     protected UrlServiceCadastroUsuario: string = environment.apiCadastroUsuario;
+    protected UrlServiceCadastroAdmin: string = environment.apiCadastroAdmin;
+    protected UrlServiceVagasAdmin: string = environment.apiVagasAdmin;
     //public LocalStorage = new LocalStorageUtils();
 
     protected ObterHeaderJson() {

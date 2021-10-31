@@ -9,7 +9,7 @@ drop table if exists cadastro_admin_tb;
 CREATE TABLE cadastro_admin_tb
 (
   id varchar(50) NOT NULL,
-  nome varchar(150) NOT NULL,
+  nome varchar(150) NULL,
   email varchar(150) NOT NULL UNIQUE,
   empresa varchar(150) NULL,
   cargo varchar(150) NULL,    
@@ -64,14 +64,11 @@ drop procedure if exists cadastro_admin_incluir_spi;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastro_admin_incluir_spi`(
   id varchar(50),
-  nome varchar(150),
-  email varchar(150),
-  empresa varchar(150),
-  cargo varchar(150)
+  email varchar(150)
 )
 BEGIN
-  insert into cadastro_admin_tb(id,nome,email,empresa,cargo)
-  values(id,nome,email,empresa,cargo);
+  insert into cadastro_admin_tb(id,email)
+  values(id,email);
 END ;;
 DELIMITER ;
 
@@ -347,6 +344,21 @@ BEGIN
   select v.id_vaga, v.id_usuario
   from vaga_usuario_tb v
   where v.id_vaga=id_vaga and v.id_usuario=id_usuario;
+END ;;
+DELIMITER ;
+
+drop procedure if exists vagas_inscritas_por_admin_id_sps;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `vagas_inscritas_por_admin_id_sps`(
+  admin_id varchar(50)
+)
+BEGIN
+  select vUser.id_vaga, v.funcao, v.descricao, v.area, v.horario, v.salario, v.beneficios, v.quantidade,
+  v.admin_id, vUser.id_usuario, cA.nome, cA.email, cA.data_nascimento, cA.profissao, cA.experiencia, cA.cursos
+  from vaga_tb v
+  inner join vaga_usuario_tb vUser on vUser.id_vaga=v.id
+  inner join cadastro_usuario_tb cA on cA.id=vUser.id_usuario
+  where v.admin_id=admin_id;
 END ;;
 DELIMITER ;
 

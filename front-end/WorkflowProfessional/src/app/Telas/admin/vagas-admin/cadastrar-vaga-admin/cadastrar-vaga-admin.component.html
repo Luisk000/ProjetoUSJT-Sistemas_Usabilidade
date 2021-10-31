@@ -4,11 +4,11 @@
   <div class="container">
     <h4 class="paragrafo">Cadastro de Vaga</h4>
     <hr class="paragrafo"/>
-    <form novalidate (ngSubmit)="adicionarVaga()" [formGroup]="cadastroVagaForm">
+    <form novalidate (ngSubmit)="salvarVaga()" [formGroup]="cadastroVagaForm">
       <div class="form-horizontal">
 
         <div class="form-group">
-          <label class="col-md-3 col-sm-5 control-label" for="funcao">Digite a função</label>
+          <label class="col-md-3 col-sm-5 control-label" for="funcao">Função</label>
           <div class="col-md-10">
             <input class="form-control" id="funcao" type="text" placeholder="Função (requerida)" formControlName="funcao" 
             [ngClass]="{'is-invalid': displayMessage.funcao}"/>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="form-group">
-          <label class="col-md-3 col-sm-5 control-label" for="descricao">Digite a descrição</label>
+          <label class="col-md-3 col-sm-5 control-label" for="descricao">Descrição</label>
           <div class="col-md-10">
             <input class="form-control" id="descricao" type="text" placeholder="Descrição (requerida)" formControlName="descricao" 
             [ngClass]="{'is-invalid': displayMessage.descricao}"/>
@@ -30,7 +30,18 @@
         </div>
 
         <div class="form-group">
-          <label class="col-md-3 col-sm-5 control-label" for="horario">Digite o horário de trabalho</label>
+          <label class="col-md-3 col-sm-5 control-label" for="area">Area</label>
+          <div class="col-md-10">
+            <input class="form-control" id="area" type="text" placeholder="Descrição (requerida)" formControlName="area" 
+            [ngClass]="{'is-invalid': displayMessage.area}"/>
+            <span class="text-danger" *ngIf="displayMessage.area">
+              <p [innerHTML]="displayMessage.area"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 col-sm-5 control-label" for="horario">Horário de trabalho</label>
           <div class="col-md-10">
             <input class="form-control" id="horario" type="text" placeholder="Horário (requerido)" formControlName="horario" 
             [ngClass]="{'is-invalid': displayMessage.horario}"/>
@@ -41,7 +52,7 @@
         </div>
 
         <div class="form-group">
-          <label class="col-md-3 col-sm-5 control-label">Digite um salário</label>
+          <label class="col-md-3 col-sm-5 control-label">Salário</label>
           <div class="col-md-10">
             <input class="form-control" id="salario" formControlName="salario" type="text"
             currencyMask
@@ -54,7 +65,18 @@
         </div>
 
         <div class="form-group">
-          <label class="col-md-5 col-sm-6 control-label" for="beneficios">Digite os benefícios</label>
+          <label class="col-md-3 col-sm-5 control-label" for="quantidade">Quantidade de Vagas</label>
+          <div class="col-md-10">
+            <input class="form-control" id="quantidade" type="number" placeholder="0" formControlName="quantidade" 
+            min="1" max="20" [ngClass]="{'is-invalid': displayMessage.quantidade}"/>
+            <span class="text-danger" *ngIf="displayMessage.quantidade">
+              <p [innerHTML]="displayMessage.quantidade"></p>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-5 col-sm-6 control-label" for="beneficios">Benefícios</label>
           <div class="col-md-10">
             <textarea class="form-control" id="beneficios" type="text" placeholder="Benefícios (requerido)" 
             formControlName="beneficios" rows="7"></textarea>

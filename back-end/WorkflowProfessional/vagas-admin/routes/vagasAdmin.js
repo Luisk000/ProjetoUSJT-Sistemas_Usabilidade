@@ -4,6 +4,7 @@ const router = express.Router();
 const VagasAdminController = require('../controllers/vagasAdmin-controller');
 
 router.get("/obterVagasPorIdAdmin/:admin_id", VagasAdminController.ObterVagasPorIdAdmin);
+router.post("/obterCandidatosInscritosPorIdAdmin", VagasAdminController.ObterCandidatosInscritos);
 router.get("/obterVagaPorId/:id", VagasAdminController.ObterVagaPorId);
 router.post("/cadastrarVaga", VagasAdminController.CadastrarVaga);
 router.put("/atualizarVaga/:id", VagasAdminController.AtualizarVaga);

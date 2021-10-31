@@ -21,6 +21,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { UsuarioService } from './Services/usuario-service';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
+import { AdminService } from './Services/admin-service';
 registerLocaleData(localePT);
 
 
@@ -52,7 +53,7 @@ registerLocaleData(localePT);
   exports: [
     NotFoundComponent
   ],
-  providers: [HttpClient, UsuarioService, {provide: LOCALE_ID, useValue: 'pt-br'}],
+  providers: [HttpClient, UsuarioService, AdminService, {provide: LOCALE_ID, useValue: 'pt-br'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

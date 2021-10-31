@@ -1,6 +1,6 @@
 <app-menu-admin></app-menu-admin>
 
-<div class="container main-container">
+<div *ngIf="dashboardVagas" class="container main-container">
   <div class="container">
     <div class="painel">
       <div class="painel-topo">
@@ -11,27 +11,15 @@
           <div class="col-5 titulo-coluna-1"><span>Vaga</span></div>
           <div class="col-5 titulo-coluna-2"><span>Candidato</span></div>
         </div>
-        
-        <div *ngIf="true" class="row conteudo">
-          <div class="col-5 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Pedro Alves</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Natália Ribeiro</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Pedro Alves</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Natália Ribeiro</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Pedro Alves</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Natália Ribeiro</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Programador C#</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Pedro Alves</span></div>
-          <div class="col-5 conteudo-coluna-1"><span>Analista de Sistemas</span></div>
-          <div class="col-5 conteudo-coluna-2"><span>Natália Ribeiro</span></div>
+
+        <div *ngIf="dashboardVagas.length > 0" class="conteudo">
+          <div class="row conteudo-interno" *ngFor="let vaga of dashboardVagas">
+            <div class="col-5 conteudo-coluna-1"><span>{{vaga.funcao}}</span></div>
+            <div class="col-5 conteudo-coluna-2"><span>{{vaga.nome}}</span></div>            
+          </div>
         </div>
 
-        <div *ngIf="false" class="row conteudo">
+        <div *ngIf="dashboardVagas.length < 0" class="row conteudo">
           <div class="col-6 sem-conteudo"><span>Não possui candidatos inscritos</span></div>          
         </div>
 

@@ -156,3 +156,12 @@ h1{
     margin-bottom: 10px;
     margin-top: -15px;
 }
+
+.conteudo-interno{
+    width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;    
+}

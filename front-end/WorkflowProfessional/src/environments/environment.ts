@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   apiVagasUsuario: 'http://localhost:6000/vagasUsuario/',
-  apiCadastroUsuario: 'http://localhost:4000/cadastroUsuario/'
+  apiCadastroUsuario: 'http://localhost:4000/cadastroUsuario/',
+  apiVagasAdmin: 'http://localhost:5000/vagasAdmin/',
+  apiCadastroAdmin: 'http://localhost:3000/cadastroAdmin/'
 };
 
 /*
