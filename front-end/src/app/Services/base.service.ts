@@ -4,10 +4,17 @@ import { environment } from 'src/environments/environment';
 
 export abstract class BaseService {
 
-    protected UrlServiceVagasUsuario: string = environment.apiVagasUsuario;
-    protected UrlServiceCadastroUsuario: string = environment.apiCadastroUsuario;
-    protected UrlServiceCadastroAdmin: string = environment.apiCadastroAdmin;
-    protected UrlServiceVagasAdmin: string = environment.apiVagasAdmin;
+    //Microservicos
+    // protected UrlServiceVagasUsuario: string = environment.apiVagasUsuario;
+    // protected UrlServiceCadastroUsuario: string = environment.apiCadastroUsuario;
+    // protected UrlServiceCadastroAdmin: string = environment.apiCadastroAdmin;
+    // protected UrlServiceVagasAdmin: string = environment.apiVagasAdmin;
+
+    //Monolito
+    protected UrlServiceVagasUsuarioMonolito: string = environment.apiVagasUsuarioMonolito;
+    protected UrlServiceCadastroUsuarioMonolito: string = environment.apiCadastroUsuarioMonolito;
+    protected UrlServiceCadastroAdminMonolito: string = environment.apiCadastroAdminMonolito;
+    protected UrlServiceVagasAdminMonolito: string = environment.apiVagasAdminMonolito;
     //public LocalStorage = new LocalStorageUtils();
 
     protected ObterHeaderJson() {

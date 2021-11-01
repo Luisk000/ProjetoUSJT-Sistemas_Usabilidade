@@ -9,22 +9,49 @@ import { DadosAdmin } from "../Telas/admin/models/vagasModel";
 @Injectable()
 export class AdminService extends BaseService {
 
-    constructor(private http: HttpClient) { super() }    
+    constructor(private http: HttpClient) { super() }
 
+    //Microsservicos
+    // obterPorId(id: string): Observable<HttpApiResponse<DadosAdmin>> {
+    //     return this.http
+    //         .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdmin + "obterPorId/" + id, super.ObterHeaderJson())
+    //         .pipe(catchError(super.serviceError));
+    // }
+    
+    // obterAdminPorEmail(email: string): Observable<HttpApiResponse<DadosAdmin>> {
+    //     return this.http
+    //         .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdmin + "obterPorEmail/" + email, super.ObterHeaderJson())
+    //         .pipe(catchError(super.serviceError));
+    // }
+
+    // cadastrarAdmin(email: string): Observable<HttpApiResponse<any>> {
+    //     return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdmin}cadastrar`,{email}, super.ObterHeaderJson());
+    // }
+
+    // atualizarAdmin(admin: DadosAdmin): Observable<HttpApiResponse<any>> {
+    //     let id = admin.id;
+    //     let nome = admin.nome;
+    //     let email = admin.email;
+    //     let empresa = admin.empresa;
+    //     let cargo = admin.cargo;        
+    //     return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdmin}atualizar/${id}`,{nome,email,empresa,cargo}, super.ObterHeaderJson());
+    // }
+
+    //Monolito
     obterPorId(id: string): Observable<HttpApiResponse<DadosAdmin>> {
         return this.http
-            .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdmin + "obterPorId/" + id, super.ObterHeaderJson())
+            .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdminMonolito + "obterPorId/" + id, super.ObterHeaderJson())
             .pipe(catchError(super.serviceError));
     }
     
     obterAdminPorEmail(email: string): Observable<HttpApiResponse<DadosAdmin>> {
         return this.http
-            .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdmin + "obterPorEmail/" + email, super.ObterHeaderJson())
+            .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdminMonolito + "obterPorEmail/" + email, super.ObterHeaderJson())
             .pipe(catchError(super.serviceError));
     }
 
     cadastrarAdmin(email: string): Observable<HttpApiResponse<any>> {
-        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdmin}cadastrar`,{email}, super.ObterHeaderJson());
+        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdminMonolito}cadastrar`,{email}, super.ObterHeaderJson());
     }
 
     atualizarAdmin(admin: DadosAdmin): Observable<HttpApiResponse<any>> {
@@ -33,6 +60,6 @@ export class AdminService extends BaseService {
         let email = admin.email;
         let empresa = admin.empresa;
         let cargo = admin.cargo;        
-        return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdmin}atualizar/${id}`,{nome,email,empresa,cargo}, super.ObterHeaderJson());
+        return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdminMonolito}atualizar/${id}`,{nome,email,empresa,cargo}, super.ObterHeaderJson());
     }
 }
