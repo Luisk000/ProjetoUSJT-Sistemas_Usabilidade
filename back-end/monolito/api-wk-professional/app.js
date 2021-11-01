@@ -6,6 +6,7 @@ const rotaCadastroAdmin = require('./routes/cadastroAdmin');
 const rotaCadastroUsuario = require('./routes/cadastroUsuario');
 const rotaVagasAdmin = require('./routes/vagasAdmin');
 const rotaVagasUsuario = require('./routes/vagasUsuario');
+const userRoute = require('./routes/userRoute');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use('/cadastroAdmin',rotaCadastroAdmin);
 app.use('/cadastroUsuario',rotaCadastroUsuario);
 app.use('/vagasAdmin',rotaVagasAdmin);
 app.use('/vagasUsuario',rotaVagasUsuario);
+app.use('/users', userRoute);
 
 app.use((req, res, next) => {
     const erro = new Error('Não encontrado');
