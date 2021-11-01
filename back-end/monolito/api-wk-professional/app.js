@@ -1,26 +1,32 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
+const cors = require("cors");
 
+const rotaCadastroAdmin = require('./routes/cadastroAdmin');
+const rotaCadastroUsuario = require('./routes/cadastroUsuario');
+const rotaVagasAdmin = require('./routes/vagasAdmin');
 const rotaVagasUsuario = require('./routes/vagasUsuario');
-app.use(cors());
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header(
-        'Access-Control-Allow-Header',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
+    res.header('Access-Control-Allow-Header', 
+    'Origin, X-Requested-With, Content-type, Accept, Authorization');
 
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    if (req.method === 'OPTIONS'){
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT');
         return res.status(200).send({});
     }
-    next();
-});
 
+    next();
+})
+
+app.use('/cadastroAdmin',rotaCadastroAdmin);
+app.use('/cadastroUsuario',rotaCadastroUsuario);
+app.use('/vagasAdmin',rotaVagasAdmin);
 app.use('/vagasUsuario',rotaVagasUsuario);
 
 app.use((req, res, next) => {
