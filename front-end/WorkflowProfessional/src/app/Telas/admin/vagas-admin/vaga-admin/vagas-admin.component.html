@@ -58,40 +58,36 @@
                     <h4></h4>
                 </div>
             </div>
-            <form >
-                <div class="modal-body" id="area-modalDetalhes">
+            <form>
+                <div class="modal-body alinhamento" id="area-modalDetalhes">
 
                     <!--Inicio Parte Superior Modal-->
-                    <!-- Botões -->
-                    <div class="row">
-
-                        <div class="col-xs-12">
-                            <button type="button" id="btnPdf" class="btn btn-labeled btn-danger" (click)="excluirVaga()">
-                            <span class="btn-label"> <i class="fa fa-file-pdf-o"></i> </span>Excluir
-                            </button>
-                        </div>
-
-                    </div>
-                    
                     <!--Fim Parte Superior Modal-->                    
 
                     <!--Inicio Movimentos-->
-
-                    <div class="meio-modal"></div>
-                   
-                    <!--Fim Movimentos-->
-
+                    <div *ngIf="vagaAdmin" class="painel-modal">      
+      
+                      <div class="detalhes-vaga-modal">
+                        <div class="nome-vaga-modal"><span>{{vagaAdmin.funcao}}</span></div>
+                        <div class="descricao-modal">
+                          <p>Área de atuação: {{vagaAdmin.area}}</p>
+                          <p>Requisitos: {{vagaAdmin.descricao}}</p>
+                          <p>Salário: {{vagaAdmin.salario | currency:'BRL':true:'1.2-2'}}</p>
+                          <p>Benefícios: {{vagaAdmin.beneficios}}</p>
+                          <p>Quantidade de Vagas: {{vagaAdmin.quantidade}}</p>
+                        </div>          
+                      </div>
                     
+                    </div>                   
+                    <!--Fim Movimentos-->                    
 
-                    <!--Inicio Parte Inferior Modal-->
-
-                    <div class="fim-modal"></div>
-                    
+                    <!--Inicio Parte Inferior Modal-->                    
                     <!--Fim Parte Inferior Modal-->
 
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer alinhar-botoes">
+                    <button class="btn btn-danger botao-excluir" (click)="excluirVaga(vagaAdmin.id)">Excluir</button>
                     <button type="button" class="btn btn-default" (click)="mdExcluir.hide();">
                         FECHAR
                     </button>

@@ -115,8 +115,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.vagasUsuarioService.obterUsuarioPorEmail(email)    
       .subscribe(response => {
         if (response){
-          this.dadosUsuario = response.data.dados;          
-          if (JSON.stringify(this.dadosUsuario) !== '[]'){
+          this.dadosUsuario = response.data.dados[0];          
+          if (response.data.totalRegistros > 0){
             this.salvarLocalStorageUsuario();
             this.irDashboard();            
           }
@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       .subscribe(response => {
         if (response){
           this.dadosAdmin = response.data.dados[0];          
-          if (JSON.stringify(this.dadosAdmin) !== '[]'){            
+          if (response.data.totalRegistros > 0){                        
             this.salvarLocalStorageAdmin();
             this.irDashboard();            
           }

@@ -11,9 +11,28 @@ export class AdminService extends BaseService {
 
     constructor(private http: HttpClient) { super() }    
 
+    obterPorId(id: string): Observable<HttpApiResponse<DadosAdmin>> {
+        return this.http
+            .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdmin + "obterPorId/" + id, super.ObterHeaderJson())
+            .pipe(catchError(super.serviceError));
+    }
+    
     obterAdminPorEmail(email: string): Observable<HttpApiResponse<DadosAdmin>> {
         return this.http
             .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdmin + "obterPorEmail/" + email, super.ObterHeaderJson())
             .pipe(catchError(super.serviceError));
+    }
+
+    cadastrarAdmin(email: string): Observable<HttpApiResponse<any>> {
+        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdmin}cadastrar`,{email}, super.ObterHeaderJson());
+    }
+
+    atualizarAdmin(admin: DadosAdmin): Observable<HttpApiResponse<any>> {
+        let id = admin.id;
+        let nome = admin.nome;
+        let email = admin.email;
+        let empresa = admin.empresa;
+        let cargo = admin.cargo;        
+        return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdmin}atualizar/${id}`,{nome,email,empresa,cargo}, super.ObterHeaderJson());
     }
 }

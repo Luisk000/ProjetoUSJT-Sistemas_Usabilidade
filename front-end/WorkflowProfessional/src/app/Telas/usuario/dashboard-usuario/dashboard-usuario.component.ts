@@ -18,7 +18,7 @@ export class DashboardUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.dadosUsuario = JSON.parse(this.localStorage.obterUsuario());    
-    this.obterPorUsuarioId(this.dadosUsuario[0].id);
+    this.obterPorUsuarioId(this.dadosUsuario.id);
   }
 
   public obterPorUsuarioId(id: string){

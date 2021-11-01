@@ -8,6 +8,8 @@ import { CustomValidators } from 'ng2-validation';
 import { DadosUsuario } from '../../usuario/models/vagasUsuario';
 import { UsuarioService } from 'src/app/Services/usuario-service';
 import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
+import { AdminService } from 'src/app/Services/admin-service';
+import { DadosAdmin } from '../../admin/models/vagasModel';
 
 @Component({
   selector: 'app-registro',
@@ -27,12 +29,14 @@ export class RegistroComponent implements OnInit, AfterViewInit {
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
-  public dadosUsuario: DadosUsuario;  
+  public dadosUsuario: DadosUsuario;
+  public dadosAdmin: DadosAdmin;  
 
   constructor(private fb: FormBuilder,    
     private router: Router,
     private route: ActivatedRoute,
-    private vagasUsuarioService : UsuarioService
+    private vagasUsuarioService : UsuarioService,
+    private vagasAdminService: AdminService
     ) {    
 
     this.validationMessages = {
@@ -83,6 +87,7 @@ export class RegistroComponent implements OnInit, AfterViewInit {
     if (this.registroForm.dirty && this.registroForm.valid) {
       this.loginRegistro = Object.assign({}, this.loginRegistro, this.registroForm.value);
       if (this.tipoUser == 2) this.obterUsuarioPorEmail(this.loginRegistro.email);
+      if (this.tipoUser == 1) this.obterAdminPorEmail(this.loginRegistro.email);
     }
   }
 
@@ -107,16 +112,20 @@ export class RegistroComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/']);
   }
 
-  salvarLocalStorage(){
+  salvarLocalStorageUsuario(){
     this.localStorage.salvarUsuario(JSON.stringify(this.dadosUsuario));
+  }
+
+  salvarLocalStorageAdmin(){
+    this.localStorage.salvarAdmin(JSON.stringify(this.dadosAdmin));
   }
 
   public obterUsuarioPorEmail(email: string){    
     this.vagasUsuarioService.obterUsuarioPorEmail(email)    
       .subscribe(response => {
         if (response){
-          this.dadosUsuario = response.data.dados;          
-          if (JSON.stringify(this.dadosUsuario) !== '[]'){            
+          this.dadosUsuario = response.data.dados[0];          
+          if (response.data.totalRegistros > 0){            
             console.log("Email já cadastrado");            
           }
           else{
@@ -132,14 +141,45 @@ export class RegistroComponent implements OnInit, AfterViewInit {
         if (response){
           this.vagasUsuarioService.obterUsuarioPorEmail(email)    
             .subscribe(response => {
-              if (response){
-                this.dadosUsuario = response.data.dados;
-                this.salvarLocalStorage();
+              if (response.data.totalRegistros > 0){
+                this.dadosUsuario = response.data.dados[0];
+                this.salvarLocalStorageUsuario();
                 this.irDashboard();
               }
             })     
         }
       })      
+  }
+  
+  public cadastrarAdmin(email: string){         
+    this.vagasAdminService.cadastrarAdmin(email)
+      .subscribe(response => {
+        if (response){
+          this.vagasAdminService.obterAdminPorEmail(email)    
+            .subscribe(response => {
+              if (response.data.totalRegistros > 0){
+                this.dadosAdmin = response.data.dados[0];
+                this.salvarLocalStorageAdmin();
+                this.irDashboard();
+              }
+            })     
+        }
+      })      
+  }
+
+  public obterAdminPorEmail(email: string){    
+    this.vagasAdminService.obterAdminPorEmail(email)    
+      .subscribe(response => {
+        if (response){
+          this.dadosAdmin = response.data.dados[0];          
+          if (response.data.totalRegistros > 0){                        
+            console.log("Email já cadastrado");            
+          }
+          else{            
+            this.cadastrarAdmin(email);
+          }                             
+        }
+      })
   }
 
 }

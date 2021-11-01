@@ -14,6 +14,7 @@ export class VagasAdminComponent implements OnInit {
   public localStorage: LocalStorageUtils = new LocalStorageUtils();
   public dadosAdmin: DadosAdmin;
   public vagasAdmin: VagasAdmin[];
+  public vagaAdmin: VagasAdmin;
 
   @ViewChild('mdExcluir', { static: true })
   public mdExcluir: any;
@@ -36,10 +37,31 @@ export class VagasAdminComponent implements OnInit {
     this.router.navigate(['vagas-editar', id], { relativeTo: this.route});
   }
 
-  excluirVaga(){}
+  excluirVaga(id: string){    
+    this.vagasAdminService.excluirVaga(id)
+      .subscribe(response => {
+        if (response){
+          this.mdExcluir.hide();          
+          document.location.reload();          
+        }
+        else{
+          console.log("Falha ao excluir registro");
+        }
+      })
+  }
 
-  abrirExclusao(): void{
+  abrirExclusao(id: string): void{
+    this.obterPorId(id);
     this.mdExcluir.show();
+  }
+
+  public obterPorId(id: string){
+    this.vagasAdminService.obterPorId(id)
+      .subscribe(response => {
+        if (response.data.totalRegistros > 0){
+          this.vagaAdmin = response.data.dados[0];          
+        }
+      })
   }
 
   public obterPorIdAdmin(adminId: string){

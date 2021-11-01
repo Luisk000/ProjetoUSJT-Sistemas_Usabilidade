@@ -73,7 +73,7 @@ export class CadastroUsuarioComponent implements OnInit {
       cursos: ['', [Validators.maxLength(300)]]
     });
     this.dadosUsuario = JSON.parse(this.localStorage.obterUsuario());    
-    this.obterUsuarioPorId(this.dadosUsuario[0].id)
+    this.obterUsuarioPorId(this.dadosUsuario.id)
   }
 
   ngAfterViewInit(): void {

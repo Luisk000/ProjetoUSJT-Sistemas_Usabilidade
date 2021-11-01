@@ -42,4 +42,20 @@ export class VagasAdminService extends BaseService {
         let quantidade = vaga.quantidade;
         return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceVagasAdmin}atualizarVaga/${id}`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterHeaderJson());
     }
+
+    excluirVaga(id: string): Observable<HttpApiResponse<any>> {        
+        return this.http.delete<HttpApiResponse<any>>(`${this.UrlServiceVagasAdmin}excluirVaga/${id}`, super.ObterHeaderJson());
+    }
+
+    cadastrarVaga(vaga: VagasAdmin): Observable<HttpApiResponse<any>> {        
+        let admin_id = vaga.adminId;
+        let funcao = vaga.funcao;
+        let descricao = vaga.descricao;
+        let area = vaga.area;
+        let horario = vaga.horario;
+        let salario = vaga.salario;
+        let beneficios = vaga.beneficios;
+        let quantidade = vaga.quantidade;
+        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasAdmin}cadastrarVaga`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterHeaderJson());
+    }
 }

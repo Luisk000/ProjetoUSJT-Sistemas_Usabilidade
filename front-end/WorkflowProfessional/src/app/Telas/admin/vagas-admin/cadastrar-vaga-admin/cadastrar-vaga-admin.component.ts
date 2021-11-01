@@ -20,6 +20,7 @@ export class CadastrarVagaAdminComponent implements OnInit, AfterViewInit {
   public vagasAdmin: VagasAdmin;
   public vagaAdmin: VagasAdmin;
   public idVaga: string = "";
+  public novoCadastro: boolean = true;
 
   @ViewChildren(FormControlName, {read: ElementRef}) forInputElements: ElementRef[];
 
@@ -79,8 +80,11 @@ export class CadastrarVagaAdminComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.idVaga = this.route.snapshot.params['id'];
-    this.dadosAdmin = JSON.parse(this.localStorage.obterAdmin());    
-    this.obterPorId(this.idVaga);
+    this.dadosAdmin = JSON.parse(this.localStorage.obterAdmin());
+    if (this.idVaga){          
+      this.obterPorId(this.idVaga);
+      this.novoCadastro = false;
+    }
 
     this.cadastroVagaForm = this.fb.group({
       funcao: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]],
@@ -106,9 +110,12 @@ export class CadastrarVagaAdminComponent implements OnInit, AfterViewInit {
 
     if(this.cadastroVagaForm.dirty && this.cadastroVagaForm.valid){
       this.vagaAdmin = Object.assign({}, this.vagaAdmin, this.cadastroVagaForm.value);
-      this.atualizarVaga(this.vagaAdmin);
-    }
-    console.log(this.vagaAdmin);
+      if (this.novoCadastro){
+        this.vagaAdmin.adminId = this.dadosAdmin.id; 
+        this.cadastrarVaga(this.vagaAdmin); 
+      }
+      else{ this.atualizarVaga(this.vagaAdmin); }      
+    }    
   }
 
   voltarDashboard(){
@@ -143,6 +150,18 @@ export class CadastrarVagaAdminComponent implements OnInit, AfterViewInit {
     this.vagasAdminService.atualizarVaga(vaga)
       .subscribe(response => {
         if (response){          
+          document.location.reload();
+        }else{
+          console.log("Erro ao atualizar vaga")
+        }
+      })
+  }
+
+  public cadastrarVaga(vaga: VagasAdmin){
+    this.vagasAdminService.cadastrarVaga(vaga)
+      .subscribe(response => {
+        if (response){                    
+          this.voltarDashboard();
           document.location.reload();
         }else{
           console.log("Erro ao atualizar vaga")
