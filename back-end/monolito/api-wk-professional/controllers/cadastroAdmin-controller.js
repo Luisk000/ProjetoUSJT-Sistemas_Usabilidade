@@ -1,5 +1,4 @@
 const db = require('../mysql').db;
-const { v4: uuidv4 } = require('uuid');
 
 exports.ObterPorEmail = (req, res) => {  
   db.getConnection((error, conn) => {
@@ -53,25 +52,6 @@ exports.ObterPorId = (req, res) => {
       return res.status(200).send(response);            
     });
   })
-}
-
-exports.Cadastrar = (req, res) => {
-  db.getConnection((error, conn) => {
-    if (error) { return res.status(500).send({ error: error }) }
-    const id = uuidv4();
-    const { email } = req.body;
-    let mysql = "call cadastro_admin_incluir_spi(?,?)";
-    conn.query(mysql, [id, email], (error, result, field) => {
-      conn.release();
-      if (error) { return res.status(500).send({ error: error, data: { dados: null } }) } 
-      let response = {}
-      if (result.affectedRows > 0) { 
-        response = { data: { dados: 'Dados cadastrados com sucesso!' } } 
-      }
-      else { response = { data: { dados: null } } }
-      return res.status(201).send(response);            
-    });
-  })  
 }
 
 exports.Atualizar = (req, res) => {
