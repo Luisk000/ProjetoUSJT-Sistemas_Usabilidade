@@ -7,9 +7,7 @@ import { LoginRegistro } from '../Model-Login/loginRegistro';
 import { CustomValidators } from 'ng2-validation';
 import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
 import { DadosUsuario } from '../../usuario/models/vagasUsuario';
-import { UsuarioService } from 'src/app/Services/usuario-service';
 import { DadosAdmin } from '../../admin/models/vagasModel';
-import { AdminService } from 'src/app/Telas/admin/services/admin-service';
 import { LoginAdminService } from 'src/app/Services/login-admin';
 import { Autenticacao } from 'src/app/Models/http-api-response';
 
@@ -31,15 +29,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
-  public dadosUsuario: DadosUsuario;
+  public dadosUsuario: DadosUsuario = new DadosUsuario();
   public dadosAdmin: DadosAdmin = new DadosAdmin();
   public autenticacaoAdmin: Autenticacao;
 
   constructor(private fb: FormBuilder,    
     private router: Router,
     private route: ActivatedRoute,
-    private vagasUsuarioService: UsuarioService,
-    private vagasAdminService: AdminService,
     private loginAdminService: LoginAdminService
     ) {    
 
@@ -81,7 +77,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   login() {
     if (this.loginForm.dirty && this.loginForm.valid) {
       this.loginRegistro = Object.assign({}, this.loginRegistro, this.loginForm.value);
-      //if (this.tipoUser == 2) this.obterUsuarioPorEmail(this.loginRegistro.email);
+      if (this.tipoUser == 2) this.loginUsuario(this.loginRegistro.email, this.loginRegistro.senha);
       if (this.tipoUser == 1) this.loginAdmin(this.loginRegistro.email, this.loginRegistro.senha);
     }
   }
@@ -104,7 +100,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   salvarLocalStorageUsuario(){
-    this.localStorage.salvarUsuario(JSON.stringify(this.dadosUsuario));
+    this.localStorage.salvarDadosLocaisUsuario(this.autenticacaoAdmin.token, JSON.stringify(this.dadosUsuario));
   }
 
   salvarLocalStorageAdmin(){
@@ -125,6 +121,25 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.salvarLocalStorageAdmin();
           this.irDashboard();
         }
+      },
+      (erro) => {
+        console.log(erro.error.message)
+      })
+  }
+
+  public loginUsuario(email: string, senha: string){    
+    this.loginAdminService.loginUsuario(email, senha)    
+      .subscribe(response => {
+        if (response){          
+          this.autenticacaoAdmin = response;
+          this.dadosUsuario.id = this.autenticacaoAdmin.dados.userId;
+          this.dadosUsuario.email = this.autenticacaoAdmin.dados.email;
+          this.salvarLocalStorageUsuario();
+          this.irDashboard();
+        }
+      },
+      (erro) => {
+        console.log(erro.error.message)
       })
   }
 }

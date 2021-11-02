@@ -28,27 +28,29 @@ export class LocalStorageUtils{
         localStorage.removeItem('wk.admin');
     }
 
-    //-----------------------------------------------------------------------------------------
-    //-----------------------------------------------------------------------------------------
-
-    public limparDadosLocaisUsuario() {
-        localStorage.removeItem('wk.token');
-        localStorage.removeItem('wk.user');
-    }
-    
-    public obterUsuario() {
-        return JSON.parse(localStorage.getItem('wk.user'));
+    public salvarDadosLocaisUsuario(token: string, dadosAdmin: string) {
+        this.salvarTokenUsuario(token);
+        this.salvarUsuario(dadosAdmin);
     }
 
-    public obterTokenUsuario(): string {
-        return localStorage.getItem('wk.token');
+    public salvarUsuario(dadosAdmin: string) {
+        localStorage.setItem('wk.usuario', dadosAdmin);
     }
 
     public salvarTokenUsuario(token: string) {
-        localStorage.setItem('wk.token', token);
+        localStorage.setItem('wk.token-usuario', token);
+    }
+    
+    public obterUsuario() {
+        return JSON.parse(localStorage.getItem('wk.usuario'));
     }
 
-    public salvarUsuario(user: string) {
-        localStorage.setItem('wk.user', JSON.stringify(user));
+    public obterTokenUsuario(): string {
+        return localStorage.getItem('wk.token-usuario');
+    }
+
+    public limparDadosLocaisUsuario() {
+        localStorage.removeItem('wk.token-usuario');
+        localStorage.removeItem('wk.usuario');
     }
 }

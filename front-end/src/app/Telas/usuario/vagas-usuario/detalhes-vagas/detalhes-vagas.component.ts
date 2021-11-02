@@ -25,7 +25,7 @@ export class DetalhesVagasComponent implements OnInit {
 
   ngOnInit() {
     this.idVaga = this.route.snapshot.params['id'];
-    this.dadosUsuario = JSON.parse(this.localStorage.obterUsuario());
+    this.dadosUsuario = JSON.parse(JSON.stringify(this.localStorage.obterUsuario()));
     this.obterPorId(this.idVaga);
     this.checarCandidatura(this.idVaga); 
   }
@@ -44,7 +44,7 @@ export class DetalhesVagasComponent implements OnInit {
   }
 
   public checarCandidatura(idVaga: string){        
-    this.vagasUsuarioService.obterCandidatoInscrito(idVaga, this.dadosUsuario[0].id)
+    this.vagasUsuarioService.obterCandidatoInscrito(idVaga, this.dadosUsuario.id)
       .subscribe(response => {        
         if (response == true || response == false){
           this.candidatura = response;        
@@ -53,7 +53,7 @@ export class DetalhesVagasComponent implements OnInit {
   }
 
   public candidatar(){    
-    this.vagasUsuarioService.candidatarVaga(this.idVaga, this.dadosUsuario[0].id)
+    this.vagasUsuarioService.candidatarVaga(this.idVaga, this.dadosUsuario.id)
       .subscribe(response => {
         if (response){
           this.candidatura = true;

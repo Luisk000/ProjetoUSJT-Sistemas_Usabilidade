@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from
 import { Router } from '@angular/router';
 import { CustomValidators } from 'ng2-validation';
 import { Observable, fromEvent, merge } from 'rxjs';
-import { UsuarioService } from 'src/app/Services/usuario-service';
+import { UsuarioService } from 'src/app/Telas/usuario/services/usuario-service';
 import { ValidationMessages, GenericValidator, DisplayMessage } from 'src/app/Validacao/generic-form-validator';
 import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
 import { DadosUsuario } from '../models/vagasUsuario';
@@ -72,7 +72,7 @@ export class CadastroUsuarioComponent implements OnInit {
       experiencia: ['', [Validators.maxLength(500)]],
       cursos: ['', [Validators.maxLength(300)]]
     });
-    this.dadosUsuario = JSON.parse(this.localStorage.obterUsuario());    
+    this.dadosUsuario = this.dadosUsuario = JSON.parse(JSON.stringify(this.localStorage.obterUsuario()));    
     this.obterUsuarioPorId(this.dadosUsuario.id)
   }
 

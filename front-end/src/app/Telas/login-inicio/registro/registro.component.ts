@@ -6,9 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRegistro } from '../Model-Login/loginRegistro';
 import { CustomValidators } from 'ng2-validation';
 import { DadosUsuario } from '../../usuario/models/vagasUsuario';
-import { UsuarioService } from 'src/app/Services/usuario-service';
 import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
-import { AdminService } from 'src/app/Telas/admin/services/admin-service';
 import { DadosAdmin } from '../../admin/models/vagasModel';
 import { LoginAdminService } from 'src/app/Services/login-admin';
 import { Autenticacao } from 'src/app/Models/http-api-response';
@@ -31,15 +29,13 @@ export class RegistroComponent implements OnInit, AfterViewInit {
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
-  public dadosUsuario: DadosUsuario;
+  public dadosUsuario: DadosUsuario = new DadosUsuario();
   public dadosAdmin: DadosAdmin = new DadosAdmin();
   public autenticacaoAdmin: Autenticacao;  
 
   constructor(private fb: FormBuilder,    
     private router: Router,
     private route: ActivatedRoute,
-    private vagasUsuarioService : UsuarioService,
-    private vagasAdminService: AdminService,
     private loginAdminService: LoginAdminService
     ) {    
 
@@ -90,7 +86,7 @@ export class RegistroComponent implements OnInit, AfterViewInit {
   registrar() {
     if (this.registroForm.dirty && this.registroForm.valid) {
       this.loginRegistro = Object.assign({}, this.loginRegistro, this.registroForm.value);
-      //if (this.tipoUser == 2) this.obterUsuarioPorEmail(this.loginRegistro.email);
+      if (this.tipoUser == 2) this.registroUsuario(this.loginRegistro.email, this.loginRegistro.senha);
       if (this.tipoUser == 1) this.registroAdmin(this.loginRegistro.email, this.loginRegistro.senha);
     }
   }
@@ -124,37 +120,6 @@ export class RegistroComponent implements OnInit, AfterViewInit {
     this.localStorage.salvarAdmin(JSON.stringify(this.dadosAdmin));
   }
 
-  public obterUsuarioPorEmail(email: string){    
-    this.vagasUsuarioService.obterUsuarioPorEmail(email)    
-      .subscribe(response => {
-        if (response){
-          this.dadosUsuario = response.data.dados[0];          
-          if (response.data.totalRegistros > 0){            
-            console.log("Email já cadastrado");            
-          }
-          else{
-            this.cadastrarUsuario(email);
-          }                             
-        }
-      })
-  }
-
-  public cadastrarUsuario(email: string){         
-    this.vagasUsuarioService.cadastrarUsuario(email)
-      .subscribe(response => {
-        if (response){
-          this.vagasUsuarioService.obterUsuarioPorEmail(email)    
-            .subscribe(response => {
-              if (response.data.totalRegistros > 0){
-                this.dadosUsuario = response.data.dados[0];
-                this.salvarLocalStorageUsuario();
-                this.irDashboard();
-              }
-            })     
-        }
-      })      
-  }
-
   public registroAdmin(email: string, senha: string){    
     this.loginAdminService.registroAdmin(email, senha)    
       .subscribe(response => {
@@ -175,6 +140,31 @@ export class RegistroComponent implements OnInit, AfterViewInit {
           this.dadosAdmin.id = this.autenticacaoAdmin.dados.userId;
           this.dadosAdmin.email = this.autenticacaoAdmin.dados.email;
           this.salvarLocalStorageAdmin();
+          this.irDashboard();
+        }
+      })
+  }
+
+  public registroUsuario(email: string, senha: string){    
+    this.loginAdminService.registroUsuario(email, senha)    
+      .subscribe(response => {
+        if (response){
+          this.loginUsuario(email, senha);
+        }
+      },
+      (erro) => {
+        console.log(erro.error.message)
+      })
+  }
+
+  public loginUsuario(email: string, senha: string){    
+    this.loginAdminService.loginUsuario(email, senha)    
+      .subscribe(response => {
+        if (response){          
+          this.autenticacaoAdmin = response;
+          this.dadosUsuario.id = this.autenticacaoAdmin.dados.userId;
+          this.dadosUsuario.email = this.autenticacaoAdmin.dados.email;
+          this.salvarLocalStorageUsuario();
           this.irDashboard();
         }
       })

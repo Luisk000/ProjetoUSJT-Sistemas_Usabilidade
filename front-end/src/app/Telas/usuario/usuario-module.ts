@@ -22,6 +22,7 @@ import { VagaUsuarioComponent } from './vagas-usuario/vaga-usuario/vaga-usuario.
 import { VagaComponent } from './vagas-usuario/vaga.component';
 import { Top20UsuarioComponent } from './top-20-usuario/top20-usuario.component';
 import { VagasUsuarioService } from './services/vagasUsuarioService';
+import { UsuarioService } from './services/usuario-service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { VagasUsuarioService } from './services/vagasUsuarioService';
     CurrencyMaskModule
   ],  
   providers: [
-    VagasUsuarioService
+    VagasUsuarioService,
+    UsuarioService
   ]
 })
 export class UsuarioModule { }

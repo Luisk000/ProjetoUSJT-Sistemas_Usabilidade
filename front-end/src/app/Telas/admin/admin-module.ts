@@ -20,6 +20,7 @@ import { VagasComponent } from './vagas-admin/vagas.component';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { VagasAdminService } from './services/vagasAdminService';
+import { AdminService } from './services/admin-service';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,6 @@ import { VagasAdminService } from './services/vagasAdminService';
     AngularDraggableModule,
     ModalModule.forRoot()
   ],  
-  providers: [VagasAdminService]
+  providers: [VagasAdminService, AdminService]
 })
 export class AdminModule { }

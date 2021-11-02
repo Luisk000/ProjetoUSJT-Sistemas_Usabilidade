@@ -17,7 +17,7 @@ export class DashboardUsuarioComponent implements OnInit {
   constructor(private vagasUsuarioService : VagasUsuarioService) { }
 
   ngOnInit() {
-    this.dadosUsuario = JSON.parse(this.localStorage.obterUsuario());    
+    this.dadosUsuario = JSON.parse(JSON.stringify(this.localStorage.obterUsuario()));  
     this.obterPorUsuarioId(this.dadosUsuario.id);
   }
 

@@ -165,18 +165,6 @@ BEGIN
 END ;;
 DELIMITER ;
 
--- drop procedure if exists cadastro_usuario_incluir_spi;
--- DELIMITER ;;
--- CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastro_usuario_incluir_spi`(
---   id varchar(50),  
---   email varchar(150)
--- )
--- BEGIN
---   insert into cadastro_usuario_tb(id,email)
---   values(id,email);
--- END ;;
--- DELIMITER ;
-
 drop procedure if exists cadastro_usuario_alterar_spi;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastro_usuario_alterar_spi`(
@@ -209,18 +197,6 @@ BEGIN
   select cUser.id, cUser.nome, cUser.email, cUser.data_nascimento, cUser.profissao, cUser.experiencia, cUser.cursos 
   from cadastro_usuario_tb cUser
   where cUser.id=id;
-END ;;
-DELIMITER ;
-
-drop procedure if exists cadastro_usuario_obter_email_sps;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastro_usuario_obter_email_sps`(
-  email varchar(150)
-)
-BEGIN
-  select cUser.id, cUser.nome, cUser.email, cUser.data_nascimento, cUser.profissao, cUser.experiencia, cUser.cursos 
-  from cadastro_usuario_tb cUser
-  where cUser.email=email;
 END ;;
 DELIMITER ;
 

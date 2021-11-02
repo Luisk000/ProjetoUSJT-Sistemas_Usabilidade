@@ -66,52 +66,52 @@ export class VagasUsuarioService extends BaseService {
     //Monolito
     obterTodas(): Observable<HttpApiResponse<VagasUsuario[]>> {
         return this.http
-            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterTodas", super.ObterHeaderJson())
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterTodas", super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterVagasTop20(): Observable<HttpApiResponse<VagasUsuario[]>> {
         return this.http
-            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterTop20", super.ObterHeaderJson())
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterTop20", super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterAreasMais(): Observable<HttpApiResponse<VagasUsuario[]>> {
         return this.http
-            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterAreaMais", super.ObterHeaderJson())
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterAreaMais", super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterVagasPorNome(filtro: string): Observable<HttpApiResponse<VagasUsuario[]>> {        
-        return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuarioMonolito}obterFiltroNome`,{filtro}, super.ObterHeaderJson());
+        return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuarioMonolito}obterFiltroNome`,{filtro}, super.ObterAuthHeaderJsonUsuario());
     }
 
     obterVagasPorDescricao(filtro: string): Observable<HttpApiResponse<VagasUsuario[]>> {        
-        return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuarioMonolito}obterFiltroDescricao`,{filtro}, super.ObterHeaderJson());
+        return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuarioMonolito}obterFiltroDescricao`,{filtro}, super.ObterAuthHeaderJsonUsuario());
     }
 
     obterPorId(id: string): Observable<HttpApiResponse<VagasUsuario>> {
         return this.http
-            .get<HttpApiResponse<VagasUsuario>>(this.UrlServiceVagasUsuarioMonolito + "obterPorId/" + id, super.ObterHeaderJson())
+            .get<HttpApiResponse<VagasUsuario>>(this.UrlServiceVagasUsuarioMonolito + "obterPorId/" + id, super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterPorUsuarioId(idUsuario: string): Observable<HttpApiResponse<VagasUsuario[]>> {
         let id_usuario = idUsuario;
         return this.http
-            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterPorUsuarioId/" + id_usuario, super.ObterHeaderJson())
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterPorUsuarioId/" + id_usuario, super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterCandidatoInscrito(idVaga: string, idUsuario: string): Observable<boolean> {
         let id_vaga = idVaga; 
         let id_usuario = idUsuario;        
-        return this.http.post<boolean>(`${this.UrlServiceVagasUsuarioMonolito}obterCandidatoInscrito`,{id_vaga,id_usuario}, super.ObterHeaderJson());
+        return this.http.post<boolean>(`${this.UrlServiceVagasUsuarioMonolito}obterCandidatoInscrito`,{id_vaga,id_usuario}, super.ObterAuthHeaderJsonUsuario());
     }
 
     candidatarVaga(idVaga: string, idUsuario: string): Observable<HttpApiResponse<any>> {
         let id_vaga = idVaga; 
         let id_usuario = idUsuario;        
-        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasUsuarioMonolito}candidatar`,{id_vaga,id_usuario}, super.ObterHeaderJson());
+        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasUsuarioMonolito}candidatar`,{id_vaga,id_usuario}, super.ObterAuthHeaderJsonUsuario());
     }
 }

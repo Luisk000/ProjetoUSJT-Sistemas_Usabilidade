@@ -18,8 +18,7 @@ export abstract class BaseService {
     protected UrlServiceCadastroUsuarioMonolito: string = environment.apiCadastroUsuarioMonolito;
     protected UrlServiceCadastroAdminMonolito: string = environment.apiCadastroAdminMonolito;
     protected UrlServiceVagasAdminMonolito: string = environment.apiVagasAdminMonolito;
-    protected UrlServiceAutenticacaoAdminMonolito: string = environment.apiAutenticacaoAdminMonolito;
-    protected UrlServiceAutenticacaoUsuarioMonolito: string = environment.apiAutenticacaoUsuarioMonolito;
+    protected UrlServiceAutenticacaoMonolito: string = environment.apiAutenticacaoMonolito;
 
     protected ObterHeaderJson() {
         return {
@@ -29,7 +28,7 @@ export abstract class BaseService {
         };
     }
 
-    protected ObterAuthHeaderJson() {
+    protected ObterAuthHeaderJsonAdmin() {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -38,14 +37,14 @@ export abstract class BaseService {
         };
     }
 
-    // protected ObterAuthHeaderJson() {
-    //     return {
-    //         headers: new HttpHeaders({
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${this.LocalStorage.obterTokenUsuario()}`
-    //         })
-    //     };
-    // }
+    protected ObterAuthHeaderJsonUsuario() {
+        return {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.localStorage.obterTokenUsuario()}`
+            })
+        };
+    }
 
     protected extractData(response: any) {
         return response.data || {};

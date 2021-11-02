@@ -18,7 +18,7 @@ import { RouterModule } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { UsuarioService } from './Services/usuario-service';
+import { UsuarioService } from './Telas/usuario/services/usuario-service';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 import { AdminService } from './Telas/admin/services/admin-service';
@@ -54,7 +54,7 @@ registerLocaleData(localePT);
   exports: [
     NotFoundComponent
   ],
-  providers: [HttpClient, UsuarioService, LoginAdminService, AdminService, {provide: LOCALE_ID, useValue: 'pt-br'}],
+  providers: [HttpClient, LoginAdminService, {provide: LOCALE_ID, useValue: 'pt-br'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

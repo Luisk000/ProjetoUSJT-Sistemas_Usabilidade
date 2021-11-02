@@ -40,12 +40,8 @@ export class AdminService extends BaseService {
     //Monolito
     obterPorId(id: string): Observable<HttpApiResponse<DadosAdmin>> {
         return this.http
-            .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdminMonolito + "obterPorId/" + id, super.ObterAuthHeaderJson())
+            .get<HttpApiResponse<DadosAdmin>>(this.UrlServiceCadastroAdminMonolito + "obterPorId/" + id, super.ObterAuthHeaderJsonAdmin())
             .pipe(catchError(super.serviceError));
-    }
-
-    cadastrarAdmin(email: string): Observable<HttpApiResponse<any>> {
-        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdminMonolito}cadastrar`,{email}, super.ObterAuthHeaderJson());
     }
 
     atualizarAdmin(admin: DadosAdmin): Observable<HttpApiResponse<any>> {
@@ -54,6 +50,6 @@ export class AdminService extends BaseService {
         let email = admin.email;
         let empresa = admin.empresa;
         let cargo = admin.cargo;        
-        return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdminMonolito}atualizar/${id}`,{nome,email,empresa,cargo}, super.ObterAuthHeaderJson());
+        return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceCadastroAdminMonolito}atualizar/${id}`,{nome,email,empresa,cargo}, super.ObterAuthHeaderJsonAdmin());
     }
 }

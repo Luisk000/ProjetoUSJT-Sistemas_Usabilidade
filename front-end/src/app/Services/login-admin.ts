@@ -13,10 +13,18 @@ export class LoginAdminService extends BaseService {
 
     //Monolito
     loginAdmin(email: string, senha: string): Observable<Autenticacao> {
-        return this.http.post<Autenticacao>(`${this.UrlServiceAutenticacaoAdminMonolito}admin/login`,{email,senha}, super.ObterHeaderJson());
+        return this.http.post<Autenticacao>(`${this.UrlServiceAutenticacaoMonolito}admin/login`,{email,senha}, super.ObterHeaderJson());
     }
 
     registroAdmin(email: string, senha: string): Observable<Autenticacao> {
-        return this.http.post<Autenticacao>(`${this.UrlServiceAutenticacaoAdminMonolito}admin/registro`,{email,senha}, super.ObterHeaderJson());
+        return this.http.post<Autenticacao>(`${this.UrlServiceAutenticacaoMonolito}admin/registro`,{email,senha}, super.ObterHeaderJson());
+    }
+
+    loginUsuario(email: string, senha: string): Observable<Autenticacao> {
+        return this.http.post<Autenticacao>(`${this.UrlServiceAutenticacaoMonolito}usuario/login`,{email,senha}, super.ObterHeaderJson());
+    }
+
+    registroUsuario(email: string, senha: string): Observable<Autenticacao> {
+        return this.http.post<Autenticacao>(`${this.UrlServiceAutenticacaoMonolito}usuario/registro`,{email,senha}, super.ObterHeaderJson());
     }
 }
