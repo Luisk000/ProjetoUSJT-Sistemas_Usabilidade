@@ -25,7 +25,7 @@ export class VagasAdminComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.dadosAdmin = JSON.parse(this.localStorage.obterAdmin());
+    this.dadosAdmin = JSON.parse(JSON.stringify(this.localStorage.obterAdmin()));
     this.obterPorIdAdmin(this.dadosAdmin.id);
   }
 

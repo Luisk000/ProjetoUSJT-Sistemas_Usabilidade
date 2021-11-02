@@ -1,21 +1,43 @@
+import { DadosAdmin } from "../Telas/admin/models/vagasModel";
+
 export class LocalStorageUtils{
 
-    public obterUsuario() {
-        return JSON.parse(localStorage.getItem('wk.user'));
+    public salvarDadosLocaisAdmin(token: string, dadosAdmin: string) {
+        this.salvarTokenAdmin(token);
+        this.salvarAdmin(dadosAdmin);
     }
 
+    public salvarAdmin(dadosAdmin: string) {
+        localStorage.setItem('wk.admin', dadosAdmin);
+    }
+
+    public salvarTokenAdmin(token: string) {
+        localStorage.setItem('wk.token-admin', token);
+    }
+    
     public obterAdmin() {
         return JSON.parse(localStorage.getItem('wk.admin'));
     }
 
-    public salvarDadosLocaisUsuario(response: any) {
-        this.salvarTokenUsuario(response.accessToken);
-        this.salvarUsuario(response.userToken);
+    public obterTokenAdmin(): string {
+        return localStorage.getItem('wk.token-admin');
     }
+
+    public limparDadosLocaisAdmin() {
+        localStorage.removeItem('wk.token-admin');
+        localStorage.removeItem('wk.admin');
+    }
+
+    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
 
     public limparDadosLocaisUsuario() {
         localStorage.removeItem('wk.token');
         localStorage.removeItem('wk.user');
+    }
+    
+    public obterUsuario() {
+        return JSON.parse(localStorage.getItem('wk.user'));
     }
 
     public obterTokenUsuario(): string {
@@ -28,9 +50,5 @@ export class LocalStorageUtils{
 
     public salvarUsuario(user: string) {
         localStorage.setItem('wk.user', JSON.stringify(user));
-    }
-
-    public salvarAdmin(admin: string) {
-        localStorage.setItem('wk.admin', JSON.stringify(admin));
     }
 }

@@ -1,8 +1,11 @@
 import { HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { environment } from 'src/environments/environment';
+import { LocalStorageUtils } from "../Validacao/localStorage";
 
 export abstract class BaseService {
+
+    public localStorage: LocalStorageUtils = new LocalStorageUtils();
 
     //Microservicos
     // protected UrlServiceVagasUsuario: string = environment.apiVagasUsuario;
@@ -15,12 +18,22 @@ export abstract class BaseService {
     protected UrlServiceCadastroUsuarioMonolito: string = environment.apiCadastroUsuarioMonolito;
     protected UrlServiceCadastroAdminMonolito: string = environment.apiCadastroAdminMonolito;
     protected UrlServiceVagasAdminMonolito: string = environment.apiVagasAdminMonolito;
-    //public LocalStorage = new LocalStorageUtils();
+    protected UrlServiceAutenticacaoAdminMonolito: string = environment.apiAutenticacaoAdminMonolito;
+    protected UrlServiceAutenticacaoUsuarioMonolito: string = environment.apiAutenticacaoUsuarioMonolito;
 
     protected ObterHeaderJson() {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
+            })
+        };
+    }
+
+    protected ObterAuthHeaderJson() {
+        return {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.localStorage.obterTokenAdmin()}`
             })
         };
     }

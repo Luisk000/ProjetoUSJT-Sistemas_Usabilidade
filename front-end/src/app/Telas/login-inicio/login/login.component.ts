@@ -9,7 +9,9 @@ import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
 import { DadosUsuario } from '../../usuario/models/vagasUsuario';
 import { UsuarioService } from 'src/app/Services/usuario-service';
 import { DadosAdmin } from '../../admin/models/vagasModel';
-import { AdminService } from 'src/app/Services/admin-service';
+import { AdminService } from 'src/app/Telas/admin/services/admin-service';
+import { LoginAdminService } from 'src/app/Services/login-admin';
+import { Autenticacao } from 'src/app/Models/http-api-response';
 
 @Component({
   selector: 'app-login',
@@ -30,13 +32,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
   public dadosUsuario: DadosUsuario;
-  public dadosAdmin: DadosAdmin;
+  public dadosAdmin: DadosAdmin = new DadosAdmin();
+  public autenticacaoAdmin: Autenticacao;
 
   constructor(private fb: FormBuilder,    
     private router: Router,
     private route: ActivatedRoute,
     private vagasUsuarioService: UsuarioService,
-    private vagasAdminService: AdminService
+    private vagasAdminService: AdminService,
+    private loginAdminService: LoginAdminService
     ) {    
 
     this.validationMessages = {
@@ -77,8 +81,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   login() {
     if (this.loginForm.dirty && this.loginForm.valid) {
       this.loginRegistro = Object.assign({}, this.loginRegistro, this.loginForm.value);
-      if (this.tipoUser == 2) this.obterUsuarioPorEmail(this.loginRegistro.email);
-      if (this.tipoUser == 1) this.obterAdminPorEmail(this.loginRegistro.email);
+      //if (this.tipoUser == 2) this.obterUsuarioPorEmail(this.loginRegistro.email);
+      if (this.tipoUser == 1) this.loginAdmin(this.loginRegistro.email, this.loginRegistro.senha);
     }
   }
 
@@ -104,41 +108,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   salvarLocalStorageAdmin(){
-    this.localStorage.salvarAdmin(JSON.stringify(this.dadosAdmin));
+    this.localStorage.salvarDadosLocaisAdmin(this.autenticacaoAdmin.token, JSON.stringify(this.dadosAdmin));
   }
 
   voltarSelecao(){
     this.router.navigate(['/']);
   }
 
-  public obterUsuarioPorEmail(email: string){    
-    this.vagasUsuarioService.obterUsuarioPorEmail(email)    
+  public loginAdmin(email: string, senha: string){    
+    this.loginAdminService.loginAdmin(email, senha)    
       .subscribe(response => {
-        if (response){
-          this.dadosUsuario = response.data.dados[0];          
-          if (response.data.totalRegistros > 0){
-            this.salvarLocalStorageUsuario();
-            this.irDashboard();            
-          }
-          else{            
-            console.log("Usuario não cadastrado");
-          }                             
-        }
-      })
-  }
-
-  public obterAdminPorEmail(email: string){    
-    this.vagasAdminService.obterAdminPorEmail(email)    
-      .subscribe(response => {
-        if (response){
-          this.dadosAdmin = response.data.dados[0];          
-          if (response.data.totalRegistros > 0){                        
-            this.salvarLocalStorageAdmin();
-            this.irDashboard();            
-          }
-          else{            
-            console.log("Administrador não cadastrado");
-          }                             
+        if (response){          
+          this.autenticacaoAdmin = response;
+          this.dadosAdmin.id = this.autenticacaoAdmin.dados.userId;
+          this.dadosAdmin.email = this.autenticacaoAdmin.dados.email;
+          this.salvarLocalStorageAdmin();
+          this.irDashboard();
         }
       })
   }

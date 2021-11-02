@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { DadosAdmin } from '../models/vagasModel';
 import { LocalStorageUtils } from 'src/app/Validacao/localStorage';
 import { VagasAdminService } from '../services/vagasAdminService';
-import { AdminService } from 'src/app/Services/admin-service';
+import { AdminService } from 'src/app/Telas/admin/services/admin-service';
 
 @Component({
   selector: 'app-cadastro-admin',
@@ -64,7 +64,7 @@ export class CadastroAdminComponent implements OnInit, AfterViewInit {
       cargo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]]
     });
 
-    this.dadosAdmin = JSON.parse(this.localStorage.obterAdmin());
+    this.dadosAdmin = JSON.parse(JSON.stringify(this.localStorage.obterAdmin()));
     this.obterAdminPorId(this.dadosAdmin.id)
   }
 

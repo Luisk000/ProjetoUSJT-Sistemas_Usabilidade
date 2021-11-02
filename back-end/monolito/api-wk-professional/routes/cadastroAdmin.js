@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const login = require('../middleware/login');
 
 const CadastroAdminController = require('../controllers/cadastroAdmin-controller');
 
-router.get("/obterPorEmail/:email", CadastroAdminController.ObterPorEmail);
-router.get("/obterPorId/:id", CadastroAdminController.ObterPorId);
-router.put("/atualizar/:id", CadastroAdminController.Atualizar);
+router.get("/obterPorEmail/:email", login.required, CadastroAdminController.ObterPorEmail);
+router.get("/obterPorId/:id", login.required, CadastroAdminController.ObterPorId);
+router.put("/atualizar/:id", login.required, CadastroAdminController.Atualizar);
 
 module.exports = router;

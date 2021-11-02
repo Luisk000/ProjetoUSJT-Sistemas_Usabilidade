@@ -13,7 +13,9 @@ export const environment = {
   apiVagasUsuarioMonolito: 'http://localhost:8000/vagasUsuario/',
   apiCadastroUsuarioMonolito: 'http://localhost:8000/cadastroUsuario/',
   apiVagasAdminMonolito: 'http://localhost:8000/vagasAdmin/',
-  apiCadastroAdminMonolito: 'http://localhost:8000/cadastroAdmin/'
+  apiCadastroAdminMonolito: 'http://localhost:8000/cadastroAdmin/',
+  apiAutenticacaoAdminMonolito: 'http://localhost:8000/users/',
+  apiAutenticacaoUsuarioMonolito: 'http://localhost:8000/users/'
 };
 
 /*

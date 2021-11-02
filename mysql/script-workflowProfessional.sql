@@ -107,18 +107,6 @@ BEGIN
 END ;;
 DELIMITER ;
 
--- drop procedure if exists cadastro_admin_incluir_spi;
--- DELIMITER ;;
--- CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastro_admin_incluir_spi`(
---   id varchar(50),
---   email varchar(150)
--- )
--- BEGIN
---   insert into cadastro_admin_tb(id,email)
---   values(id,email);
--- END ;;
--- DELIMITER ;
-
 drop procedure if exists cadastro_admin_alterar_spi;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastro_admin_alterar_spi`(
@@ -147,18 +135,6 @@ BEGIN
   select cA.id, cA.nome, cA.email, cA.empresa, cA.cargo, cA.data_criacao 
   from cadastro_admin_tb cA
   where cA.id=id;
-END ;;
-DELIMITER ;
-
-drop procedure if exists cadastro_admin_obter_email_sps;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastro_admin_obter_email_sps`(
-  email varchar(150)
-)
-BEGIN
-  select cA.id, cA.nome, cA.email, cA.empresa, cA.cargo, cA.data_criacao 
-  from cadastro_admin_tb cA
-  where cA.email=email;
 END ;;
 DELIMITER ;
 

@@ -19,7 +19,7 @@ export class DashboardAdminComponent implements OnInit {
   constructor(private vagasAdminService : VagasAdminService) { }
 
   ngOnInit() {
-    this.dadosAdmin = JSON.parse(this.localStorage.obterAdmin());
+    this.dadosAdmin = JSON.parse(JSON.stringify(this.localStorage.obterAdmin()));
     this.obterVagasUsuariosPorAdminId(this.dadosAdmin.id);    
   }
 

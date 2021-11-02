@@ -80,7 +80,7 @@ export class CadastrarVagaAdminComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.idVaga = this.route.snapshot.params['id'];
-    this.dadosAdmin = JSON.parse(this.localStorage.obterAdmin());
+    this.dadosAdmin = JSON.parse(JSON.stringify(this.localStorage.obterAdmin()));
     if (this.idVaga){          
       this.obterPorId(this.idVaga);
       this.novoCadastro = false;

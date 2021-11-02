@@ -15,7 +15,7 @@ exports.registroAdmin = (req, res, next) => {
             conn.release();
             if (error) { return res.status(500).send({ error: error, data: { dados: null } }) }            
             if (result[0].length > 0) {
-                return res.status(409).json({ message: "Usuario já cadastrado" })
+                return res.status(409).send({ message: "Usuario já cadastrado" })
             }
             else{
                 let mysql2 = 'call registro_admin_incluir_spi(?,?,?)';
