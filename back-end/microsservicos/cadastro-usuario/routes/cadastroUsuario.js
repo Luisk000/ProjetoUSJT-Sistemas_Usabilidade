@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const login = require('../middleware/login');
 
 const CadastroUsuarioController = require('../controllers/cadastroUsuario-controller');
 
-router.get("/obterPorEmail/:email", CadastroUsuarioController.ObterPorEmail);
-router.get("/obterPorId/:id", CadastroUsuarioController.ObterPorId);
-router.post("/cadastrar", CadastroUsuarioController.Cadastrar);
-router.put("/atualizar/:id", CadastroUsuarioController.Atualizar);
+router.get("/obterPorEmail/:email", login.required, CadastroUsuarioController.ObterPorEmail);
+router.get("/obterPorId/:id", login.required, CadastroUsuarioController.ObterPorId);
+router.put("/atualizar/:id", login.required, CadastroUsuarioController.Atualizar);
 
 module.exports = router;

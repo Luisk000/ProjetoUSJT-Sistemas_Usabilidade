@@ -4,17 +4,16 @@
 
 export const environment = {
   production: false,
+  
   //Microsservicos
-  apiVagasUsuario: 'http://localhost:6000/vagasUsuario/',
+  apiCadastroAdmin: 'http://localhost:3000/cadastroAdmin/',
   apiCadastroUsuario: 'http://localhost:4000/cadastroUsuario/',
   apiVagasAdmin: 'http://localhost:5000/vagasAdmin/',
-  apiCadastroAdmin: 'http://localhost:3000/cadastroAdmin/',
+  apiVagasUsuario: 'http://localhost:6000/vagasUsuario/',
+  apiAutenticacao: 'http://localhost:7000/users/',
+
   //Monolito
-  apiVagasUsuarioMonolito: 'http://localhost:8000/vagasUsuario/',
-  apiCadastroUsuarioMonolito: 'http://localhost:8000/cadastroUsuario/',
-  apiVagasAdminMonolito: 'http://localhost:8000/vagasAdmin/',
-  apiCadastroAdminMonolito: 'http://localhost:8000/cadastroAdmin/',
-  apiAutenticacaoMonolito: 'http://localhost:8000/users/'
+  apiMonolito: 'http://localhost:8000/'
 };
 
 /*

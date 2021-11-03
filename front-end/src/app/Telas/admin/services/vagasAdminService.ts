@@ -15,19 +15,19 @@ export class VagasAdminService extends BaseService {
     //Microsservicos
     // obterVagasUsuariosPorAdminId(adminId: string): Observable<HttpApiResponse<DashboardVagas[]>> {
     //     let admin_id = adminId;        
-    //     return this.http.post<HttpApiResponse<DashboardVagas[]>>(`${this.UrlServiceVagasAdmin}obterCandidatosInscritosPorIdAdmin`,{admin_id}, super.ObterHeaderJson());
+    //     return this.http.post<HttpApiResponse<DashboardVagas[]>>(`${this.UrlServiceVagasAdmin}obterCandidatosInscritosPorIdAdmin`,{admin_id}, super.ObterAuthHeaderJsonAdmin());
     // }
 
     // obterPorId(id: string): Observable<HttpApiResponse<VagasAdmin>> {
     //     return this.http
-    //         .get<HttpApiResponse<VagasAdmin>>(this.UrlServiceVagasAdmin + "obterVagaPorId/" + id, super.ObterHeaderJson())
+    //         .get<HttpApiResponse<VagasAdmin>>(this.UrlServiceVagasAdmin + "obterVagaPorId/" + id, super.ObterAuthHeaderJsonAdmin())
     //         .pipe(catchError(super.serviceError));
     // }
 
     // obterPorIdAdmin(adminId: string): Observable<HttpApiResponse<VagasAdmin[]>> {
     //     let admin_id = adminId;
     //     return this.http
-    //         .get<HttpApiResponse<VagasAdmin[]>>(this.UrlServiceVagasAdmin + "obterVagasPorIdAdmin/" + admin_id, super.ObterHeaderJson())
+    //         .get<HttpApiResponse<VagasAdmin[]>>(this.UrlServiceVagasAdmin + "obterVagasPorIdAdmin/" + admin_id, super.ObterAuthHeaderJsonAdmin())
     //         .pipe(catchError(super.serviceError));
     // }
 
@@ -41,11 +41,11 @@ export class VagasAdminService extends BaseService {
     //     let salario = vaga.salario;
     //     let beneficios = vaga.beneficios;
     //     let quantidade = vaga.quantidade;
-    //     return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceVagasAdmin}atualizarVaga/${id}`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterHeaderJson());
+    //     return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceVagasAdmin}atualizarVaga/${id}`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterAuthHeaderJsonAdmin());
     // }
 
     // excluirVaga(id: string): Observable<HttpApiResponse<any>> {        
-    //     return this.http.delete<HttpApiResponse<any>>(`${this.UrlServiceVagasAdmin}excluirVaga/${id}`, super.ObterHeaderJson());
+    //     return this.http.delete<HttpApiResponse<any>>(`${this.UrlServiceVagasAdmin}excluirVaga/${id}`, super.ObterAuthHeaderJsonAdmin());
     // }
 
     // cadastrarVaga(vaga: VagasAdmin): Observable<HttpApiResponse<any>> {        
@@ -57,25 +57,26 @@ export class VagasAdminService extends BaseService {
     //     let salario = vaga.salario;
     //     let beneficios = vaga.beneficios;
     //     let quantidade = vaga.quantidade;
-    //     return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasAdmin}cadastrarVaga`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterHeaderJson());
+    //     return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasAdmin}cadastrarVaga`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterAuthHeaderJsonAdmin());
     // }
+
 
     //Monolito
     obterVagasUsuariosPorAdminId(adminId: string): Observable<HttpApiResponse<DashboardVagas[]>> {
         let admin_id = adminId;        
-        return this.http.post<HttpApiResponse<DashboardVagas[]>>(`${this.UrlServiceVagasAdminMonolito}obterCandidatosInscritosPorIdAdmin`,{admin_id}, super.ObterAuthHeaderJsonAdmin());
+        return this.http.post<HttpApiResponse<DashboardVagas[]>>(`${this.UrlServiceMonolito}vagasAdmin/obterCandidatosInscritosPorIdAdmin`,{admin_id}, super.ObterAuthHeaderJsonAdmin());
     }
 
     obterPorId(id: string): Observable<HttpApiResponse<VagasAdmin>> {
         return this.http
-            .get<HttpApiResponse<VagasAdmin>>(this.UrlServiceVagasAdminMonolito + "obterVagaPorId/" + id, super.ObterAuthHeaderJsonAdmin())
+            .get<HttpApiResponse<VagasAdmin>>(this.UrlServiceMonolito + "vagasAdmin/obterVagaPorId/" + id, super.ObterAuthHeaderJsonAdmin())
             .pipe(catchError(super.serviceError));
     }
 
     obterPorIdAdmin(adminId: string): Observable<HttpApiResponse<VagasAdmin[]>> {
         let admin_id = adminId;
         return this.http
-            .get<HttpApiResponse<VagasAdmin[]>>(this.UrlServiceVagasAdminMonolito + "obterVagasPorIdAdmin/" + admin_id, super.ObterAuthHeaderJsonAdmin())
+            .get<HttpApiResponse<VagasAdmin[]>>(this.UrlServiceMonolito + "vagasAdmin/obterVagasPorIdAdmin/" + admin_id, super.ObterAuthHeaderJsonAdmin())
             .pipe(catchError(super.serviceError));
     }
 
@@ -89,11 +90,11 @@ export class VagasAdminService extends BaseService {
         let salario = vaga.salario;
         let beneficios = vaga.beneficios;
         let quantidade = vaga.quantidade;
-        return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceVagasAdminMonolito}atualizarVaga/${id}`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterAuthHeaderJsonAdmin());
+        return this.http.put<HttpApiResponse<any>>(`${this.UrlServiceMonolito}vagasAdmin/atualizarVaga/${id}`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterAuthHeaderJsonAdmin());
     }
 
     excluirVaga(id: string): Observable<HttpApiResponse<any>> {        
-        return this.http.delete<HttpApiResponse<any>>(`${this.UrlServiceVagasAdminMonolito}excluirVaga/${id}`, super.ObterAuthHeaderJsonAdmin());
+        return this.http.delete<HttpApiResponse<any>>(`${this.UrlServiceMonolito}vagasAdmin/excluirVaga/${id}`, super.ObterAuthHeaderJsonAdmin());
     }
 
     cadastrarVaga(vaga: VagasAdmin): Observable<HttpApiResponse<any>> {        
@@ -105,6 +106,6 @@ export class VagasAdminService extends BaseService {
         let salario = vaga.salario;
         let beneficios = vaga.beneficios;
         let quantidade = vaga.quantidade;
-        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasAdminMonolito}cadastrarVaga`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterAuthHeaderJsonAdmin());
+        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceMonolito}vagasAdmin/cadastrarVaga`,{admin_id,funcao,descricao,area,horario,salario,beneficios,quantidade}, super.ObterAuthHeaderJsonAdmin());
     }
 }

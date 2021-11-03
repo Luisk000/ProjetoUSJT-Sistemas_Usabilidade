@@ -113,11 +113,11 @@ export class RegistroComponent implements OnInit, AfterViewInit {
   }
 
   salvarLocalStorageUsuario(){
-    this.localStorage.salvarUsuario(JSON.stringify(this.dadosUsuario));
+    this.localStorage.salvarDadosLocaisUsuario(this.autenticacaoAdmin.token, JSON.stringify(this.dadosUsuario));
   }
 
   salvarLocalStorageAdmin(){
-    this.localStorage.salvarAdmin(JSON.stringify(this.dadosAdmin));
+    this.localStorage.salvarDadosLocaisAdmin(this.autenticacaoAdmin.token, JSON.stringify(this.dadosAdmin));
   }
 
   public registroAdmin(email: string, senha: string){    

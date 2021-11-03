@@ -14,104 +14,104 @@ export class VagasUsuarioService extends BaseService {
     //Microsservicos
     // obterTodas(): Observable<HttpApiResponse<VagasUsuario[]>> {
     //     return this.http
-    //         .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterTodas", super.ObterHeaderJson())
+    //         .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterTodas", super.ObterAuthHeaderJsonUsuario())
     //         .pipe(catchError(super.serviceError));
     // }
 
     // obterVagasTop20(): Observable<HttpApiResponse<VagasUsuario[]>> {
     //     return this.http
-    //         .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterTop20", super.ObterHeaderJson())
+    //         .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterTop20", super.ObterAuthHeaderJsonUsuario())
     //         .pipe(catchError(super.serviceError));
     // }
 
     // obterAreasMais(): Observable<HttpApiResponse<VagasUsuario[]>> {
     //     return this.http
-    //         .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterAreaMais", super.ObterHeaderJson())
+    //         .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterAreaMais", super.ObterAuthHeaderJsonUsuario())
     //         .pipe(catchError(super.serviceError));
     // }
 
     // obterVagasPorNome(filtro: string): Observable<HttpApiResponse<VagasUsuario[]>> {        
-    //     return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuario}obterFiltroNome`,{filtro}, super.ObterHeaderJson());
+    //     return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuario}obterFiltroNome`,{filtro}, super.ObterAuthHeaderJsonUsuario());
     // }
 
     // obterVagasPorDescricao(filtro: string): Observable<HttpApiResponse<VagasUsuario[]>> {        
-    //     return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuario}obterFiltroDescricao`,{filtro}, super.ObterHeaderJson());
+    //     return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuario}obterFiltroDescricao`,{filtro}, super.ObterAuthHeaderJsonUsuario());
     // }
 
     // obterPorId(id: string): Observable<HttpApiResponse<VagasUsuario>> {
     //     return this.http
-    //         .get<HttpApiResponse<VagasUsuario>>(this.UrlServiceVagasUsuario + "obterPorId/" + id, super.ObterHeaderJson())
+    //         .get<HttpApiResponse<VagasUsuario>>(this.UrlServiceVagasUsuario + "obterPorId/" + id, super.ObterAuthHeaderJsonUsuario())
     //         .pipe(catchError(super.serviceError));
     // }
 
     // obterPorUsuarioId(idUsuario: string): Observable<HttpApiResponse<VagasUsuario[]>> {
     //     let id_usuario = idUsuario;
     //     return this.http
-    //         .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterPorUsuarioId/" + id_usuario, super.ObterHeaderJson())
+    //         .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuario + "obterPorUsuarioId/" + id_usuario, super.ObterAuthHeaderJsonUsuario())
     //         .pipe(catchError(super.serviceError));
     // }
 
     // obterCandidatoInscrito(idVaga: string, idUsuario: string): Observable<boolean> {
     //     let id_vaga = idVaga; 
     //     let id_usuario = idUsuario;        
-    //     return this.http.post<boolean>(`${this.UrlServiceVagasUsuario}obterCandidatoInscrito`,{id_vaga,id_usuario}, super.ObterHeaderJson());
+    //     return this.http.post<boolean>(`${this.UrlServiceVagasUsuario}obterCandidatoInscrito`,{id_vaga,id_usuario}, super.ObterAuthHeaderJsonUsuario());
     // }
 
     // candidatarVaga(idVaga: string, idUsuario: string): Observable<HttpApiResponse<any>> {
     //     let id_vaga = idVaga; 
     //     let id_usuario = idUsuario;        
-    //     return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasUsuario}candidatar`,{id_vaga,id_usuario}, super.ObterHeaderJson());
+    //     return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasUsuario}candidatar`,{id_vaga,id_usuario}, super.ObterAuthHeaderJsonUsuario());
     // }
 
     //Monolito
     obterTodas(): Observable<HttpApiResponse<VagasUsuario[]>> {
         return this.http
-            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterTodas", super.ObterAuthHeaderJsonUsuario())
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceMonolito + "vagasUsuario/obterTodas", super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterVagasTop20(): Observable<HttpApiResponse<VagasUsuario[]>> {
         return this.http
-            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterTop20", super.ObterAuthHeaderJsonUsuario())
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceMonolito + "vagasUsuario/obterTop20", super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterAreasMais(): Observable<HttpApiResponse<VagasUsuario[]>> {
         return this.http
-            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterAreaMais", super.ObterAuthHeaderJsonUsuario())
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceMonolito + "vagasUsuario/obterAreaMais", super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterVagasPorNome(filtro: string): Observable<HttpApiResponse<VagasUsuario[]>> {        
-        return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuarioMonolito}obterFiltroNome`,{filtro}, super.ObterAuthHeaderJsonUsuario());
+        return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceMonolito}vagasUsuario/obterFiltroNome`,{filtro}, super.ObterAuthHeaderJsonUsuario());
     }
 
     obterVagasPorDescricao(filtro: string): Observable<HttpApiResponse<VagasUsuario[]>> {        
-        return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceVagasUsuarioMonolito}obterFiltroDescricao`,{filtro}, super.ObterAuthHeaderJsonUsuario());
+        return this.http.post<HttpApiResponse<VagasUsuario[]>>(`${this.UrlServiceMonolito}vagasUsuario/obterFiltroDescricao`,{filtro}, super.ObterAuthHeaderJsonUsuario());
     }
 
     obterPorId(id: string): Observable<HttpApiResponse<VagasUsuario>> {
         return this.http
-            .get<HttpApiResponse<VagasUsuario>>(this.UrlServiceVagasUsuarioMonolito + "obterPorId/" + id, super.ObterAuthHeaderJsonUsuario())
+            .get<HttpApiResponse<VagasUsuario>>(this.UrlServiceMonolito + "vagasUsuario/obterPorId/" + id, super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterPorUsuarioId(idUsuario: string): Observable<HttpApiResponse<VagasUsuario[]>> {
         let id_usuario = idUsuario;
         return this.http
-            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceVagasUsuarioMonolito + "obterPorUsuarioId/" + id_usuario, super.ObterAuthHeaderJsonUsuario())
+            .get<HttpApiResponse<VagasUsuario[]>>(this.UrlServiceMonolito + "vagasUsuario/obterPorUsuarioId/" + id_usuario, super.ObterAuthHeaderJsonUsuario())
             .pipe(catchError(super.serviceError));
     }
 
     obterCandidatoInscrito(idVaga: string, idUsuario: string): Observable<boolean> {
         let id_vaga = idVaga; 
         let id_usuario = idUsuario;        
-        return this.http.post<boolean>(`${this.UrlServiceVagasUsuarioMonolito}obterCandidatoInscrito`,{id_vaga,id_usuario}, super.ObterAuthHeaderJsonUsuario());
+        return this.http.post<boolean>(`${this.UrlServiceMonolito}vagasUsuario/obterCandidatoInscrito`,{id_vaga,id_usuario}, super.ObterAuthHeaderJsonUsuario());
     }
 
     candidatarVaga(idVaga: string, idUsuario: string): Observable<HttpApiResponse<any>> {
         let id_vaga = idVaga; 
         let id_usuario = idUsuario;        
-        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceVagasUsuarioMonolito}candidatar`,{id_vaga,id_usuario}, super.ObterAuthHeaderJsonUsuario());
+        return this.http.post<HttpApiResponse<any>>(`${this.UrlServiceMonolito}vagasUsuario/candidatar`,{id_vaga,id_usuario}, super.ObterAuthHeaderJsonUsuario());
     }
 }

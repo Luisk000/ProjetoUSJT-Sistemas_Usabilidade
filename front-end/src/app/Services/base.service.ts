@@ -8,17 +8,14 @@ export abstract class BaseService {
     public localStorage: LocalStorageUtils = new LocalStorageUtils();
 
     //Microservicos
-    // protected UrlServiceVagasUsuario: string = environment.apiVagasUsuario;
-    // protected UrlServiceCadastroUsuario: string = environment.apiCadastroUsuario;
-    // protected UrlServiceCadastroAdmin: string = environment.apiCadastroAdmin;
-    // protected UrlServiceVagasAdmin: string = environment.apiVagasAdmin;
+    protected UrlServiceVagasUsuario: string = environment.apiVagasUsuario;
+    protected UrlServiceCadastroUsuario: string = environment.apiCadastroUsuario;
+    protected UrlServiceCadastroAdmin: string = environment.apiCadastroAdmin;
+    protected UrlServiceVagasAdmin: string = environment.apiVagasAdmin;
+    protected UrlServiceAutenticacao: string = environment.apiAutenticacao;
 
     //Monolito
-    protected UrlServiceVagasUsuarioMonolito: string = environment.apiVagasUsuarioMonolito;
-    protected UrlServiceCadastroUsuarioMonolito: string = environment.apiCadastroUsuarioMonolito;
-    protected UrlServiceCadastroAdminMonolito: string = environment.apiCadastroAdminMonolito;
-    protected UrlServiceVagasAdminMonolito: string = environment.apiVagasAdminMonolito;
-    protected UrlServiceAutenticacaoMonolito: string = environment.apiAutenticacaoMonolito;
+    protected UrlServiceMonolito: string = environment.apiMonolito;
 
     protected ObterHeaderJson() {
         return {
