@@ -1,38 +1,113 @@
-.botao-voltar{
+.main{
+    background-image: linear-gradient(#b3d9ff, #a6a6a6);
+    padding-top: 2%;
+  
+    padding-right: 4%;
+    padding-left: 4%;
+    overflow-y: hidden;
+  }
+  
+  .control-label{
+    color:white;
+  }
+  
+  .container{
+    background-color: black;
+    border-radius: 15px;
+    margin-top: 5%;
+    margin-bottom: -5%;
+  }
+  
+  .botao-voltar{
     margin-left: 25px;
     width: 100px;
-}
-
-.paragrafo{
+    background-color:black;
+    color:rgb(168, 11, 11);
+    font-weight: 700;
+  }
+  
+  .paragrafo{
     margin-left: 15px;
-}
-
-h4{
+  }
+  
+  h4{
     font-size: 24px;
-    font-weight: 500;
-    margin-top: -40px;
-}
-
-.botao-login{
+    font-style: italic;
+    color:whitesmoke;
+    font-weight: 600;
+    margin-top: -80px;
+  }
+  
+  .botao-login{
     width: 100px;
-}
-
-.botao-registrar{
-    margin-left: 25px;
+    margin-right: 25px;
+    background-color:black;
+    color:#33ff33;
+    font-weight: 700;
+  }
+  
+  
+  .botao-login:hover{
+    background-color:rgb(10, 156, 10);
+    color:black;
+  }
+  
+  .botao-voltar:hover{
+    background-color:rgb(168, 11, 11);
+    color:black;
+  }
+  
+  .botao-registrar{
     width: 200px;
-}
-
-.botoes{
+    font-weight: 700;
+  }
+  
+  .botao-registrar:hover{
+    background-color:rgb(58, 129, 129);
+    color:black
+  }
+  
+  .botoes{
     margin-top: 50px;
-}
-
-@media (max-width: 450px) and (min-width: 330px){
-    .botao-login{
-        width: 100px;
-        margin-bottom: 20px;
+  }
+  
+  .form-control{
+    background-color:whitesmoke
+  }
+  
+  @media (max-width: 469px){
+  .botao-login{
+      width: 200px;
+      margin-bottom: 20px;
+      margin-right: 15px;
+  }
+  .botao-registrar{
+    width: 200px;
+    margin-bottom: 20px;
+    margin-right: 15px;
+  }
+  .botao-voltar{
+    width: 200px;
+    margin-bottom: 20px;
+    margin-right: 15px;
+    margin-left: 0px;
+  }
+  }
+  
+  @media (max-width: 270px){
+    h4{
+        font-size: 20px;
     }
-}
-
-@media (max-width: 320px){
-    
-}
+    .botao-login{
+        width: auto;
+        font-size: 15px;
+    }
+    .botao-registrar{
+        width: auto;
+        font-size: 15px;
+    }
+    .botao-voltar{
+        width: auto;
+        font-size: 15px;
+    }
+  }

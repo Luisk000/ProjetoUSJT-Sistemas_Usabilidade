@@ -1,42 +1,32 @@
 <app-menu-admin></app-menu-admin>
-
-<div *ngIf="vagasAdmin" class="container main-container">
+<div class="body">
+<div class="container main-container">
   <div class="container">
     <div class="painel">
       <div class="painel-topo">
         <h1>Vagas</h1>
-      </div>
-
-      <div class="linha-botao-cadastrar">        
+        <div class="linha-botao-cadastrar">
           <button class="btn btn-success botao-cadastrar" (click)="cadastrarVaga()">Cadastrar Vaga</button>
+        </div>
       </div>
 
-      <div class="row painel-corpo">
-        <div class="row titulos">
-          <div class="col-4 titulo-coluna-1"><span>Vaga</span></div>
-          <div class="col-4 titulo-coluna-2"><span>Descrição</span></div>
-          <div class="col-3 titulo-coluna-2"><span>Ação</span></div>
-        </div>
-
+      <div *ngIf="vagasAdmin.length > 0" class="painel-corpo">
         <div *ngIf="vagasAdmin.length > 0" class="conteudo">
           <div class="row conteudo-interno" *ngFor="let vaga of vagasAdmin">
-            <div class="col-4 conteudo-coluna-1"><span>{{vaga.funcao}}</span></div>
-            <div class="col-4 conteudo-coluna-2"><span>{{vaga.descricao}}</span></div>
-            <div class="col-3 conteudo-coluna-3">
-              <span class="botoes">
-                <button class="btn btn-warning botao-editar" (click)="editarVaga(vaga.id)">Editar</button>
-                <button class="btn btn-danger botao-voltar" (click)="abrirExclusao(vaga.id)">Excluir</button>
-              </span>
-            </div>
+            <ul class="nome">
+              <span>{{vaga.funcao}}</span>
+              <li class="descricao">{{vaga.descricao}}</li>
+              <button class="btn btn-warning botao-editar" (click)="editarVaga(vaga.id)">Editar</button>
+              <button class="btn btn-danger botao-voltar" (click)="abrirExclusao(vaga.id)">Excluir</button>
+            </ul>
           </div>
         </div>        
 
         <div *ngIf="vagasAdmin.length < 0" class="row conteudo">
-          <div class="col-6 sem-conteudo"><span>Não possui vagas cadastradas</span></div>          
+          <div class="col-6 sem-conteudo"><span>Não possui vagas cadastradas</span></div>
         </div>
-
       </div>
-    </div>    
+    </div>
   </div>
 </div>
 
